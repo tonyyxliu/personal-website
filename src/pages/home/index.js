@@ -1,16 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+import reportWebVitals from '../../reportWebVitals';
 
 
-import HomePage from './pages/HomePage';
+// import HomePage from './pages/HomePage';
 
+alert("Home");
+
+function Home() {
+    return (
+        <div>
+            This is Home Page.
+        </div>
+    );
+}
 
 ReactDOM.render(
   <React.StrictMode>
-    <HomePage />
+    <Home />
   </React.StrictMode>,
   document.getElementById('root')
 );
