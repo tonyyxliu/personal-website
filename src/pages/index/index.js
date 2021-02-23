@@ -1,37 +1,125 @@
+/* 解决IE浏览器的不兼容问题 */
+import  "react-app-polyfill/ie11";
+import  "react-app-polyfill/stable";
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from '../../reportWebVitals';
 import 'fontsource-roboto';
 import "./index.css";
-import { Card, CardActions, CardContent, Tooltip, Typography } from '@material-ui/core';
+import { Card, CardActions, CardContent, Tooltip, Typography, Divider, CardActionArea, Paper, Button } from '@material-ui/core';
 import Chip from '@material-ui/core/Chip';
 import Link from '@material-ui/core/Link';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import ChatOutlinedIcon from '@material-ui/icons/ChatOutlined';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import EmailIcon from '@material-ui/icons/Email';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import IconButton from '@material-ui/core/IconButton';
+import BackgroundImage from "../../assets/images/background.png";
 
 
-// import HomePage from './pages/HomePage';
 
 
+
+
+const infoObj = {
+  imageURL: "../../assets/gravatar.png",
+  tag: "前端",
+  title: "使用rollup和typescript搭建自己的函数库",
+  content: "简介 每当在项目中需要使用一些工具函数时，一般需要去引入一些第三方的工具库，而像lodash这样的工具库又体积很大，影响打包后整个项目的大小。所以封装自己的代码库就很必要了。 本篇文章将介绍如何使用rollup工具生成自己的代码库； 为了提高代码可维护性，将使用typescript编写代码； 为了保",
+  date: new Date(),
+  commentNumber: 189,
+  starNumber: 200,
+  linkURL: "https://www.mi.com/",
+};
 const infocard = new CreateInfoCard("../../assets/gravatar.png", "前端", "this is a title","daiodjiawodjawojodjwaiodjawiojmskamcnnieojofjewfjm", new Date(), 123, 123, "https://www.baidu.com/");
+const infocard2 = new CreateInfoCardByObject(infoObj);
+
+
+
+
+function Index() {
+  return (
+      // <div className="mainbody-outer">
+      //   <div className="mainbody">
+      //       <Header />
+      //       <Main />
+      //       <Footer />
+      //   </div>
+      // </div>
+
+      <div className="mainbody">
+        <Header />
+        <Main />
+        <Footer />
+      </div>
+  );
+}
+
+ReactDOM.render(
+<React.StrictMode>
+  <Index />
+</React.StrictMode>,
+document.getElementById('root')
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
+
+
+
 
 
 function Header() {
   return (
-    <div className="header">
-      <div className="title-div">
-        <a className="title" href="/">刘宇轩的个人博客</a>
-      </div>
-      <div className="headline">
+    <div className="heading">
+        <img src={BackgroundImage} className="header-background" alt="header-background" />
+        <div className="header-title">
+          <a className="title" href="/">刘宇轩的个人博客</a>
+        </div>
+        <div className="header-text">
           刘宇轩
           <br />
           记录和分享技术
-        </div>
+      </div>
     </div>
   )
 }
+
+
+function Main(props) {
+  return (
+    // <div className="main-outer-div">
+    //   <div className="main-test">
+
+    //   </div>
+    //   <div className="main-inner-div">
+    //     <div className="main-left">
+    //       <InfoCard info={infocard} />
+    //       <InfoCard info={infocard2} />
+    //     </div>
+    //     <div className="main-right">
+    //       Right
+    //     </div>
+    //   </div>
+    // </div>
+    <div className="main">
+      <div className="main-left">
+        <InfoCard info={infocard} />
+        <InfoCard info={infocard2} />
+      </div>
+      <div className="main-right">
+        Right
+      </div>
+    </div>
+  );
+}
+
 
 function InfoCard(props) {
   const imageURL = props.info.imageURL;
@@ -44,83 +132,121 @@ function InfoCard(props) {
   const starNumber = props.info.starNumber;
   const linkURL = props.info.linkURL;
   return (
-    <Card className="infocard">
-      <CardContent>
-        <div className="infocard-upper">
-          <div className="infocard-img-div">
+    <Paper elevation={3} className="infocard">
+      <div className="infocard-upper">
+        <div className="infocard-img-div">
+          <a href={linkURL} target="_blank" rel="noreferrer">
             <img src="https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1089874897,1268118658&fm=26&gp=0.jpg" alt="card" className="infocard-img" />
-          </div>
-          <div className="infocard-content-div">
-            <div className="infocard-content-title-div">
-              <div className="infocard-content-title">
-                <Chip label={tag} component="a" href={tagURL} target="_blank" rel="noopener" color="primary" clickable />
-              </div>
-              <div className="infocard-content-title">
-                <Typography className="infocard-content-title">
-                  {title}
-                </Typography>
-              </div>
+          </a>
+        </div>
+        <div className="infocard-content-div">
+          <div className="infocard-content-title-div">
+            <div className="infocard-content-title">
+              <Chip label={tag} component="a" href={tagURL} target="_blank" color="primary" rel="noopener" clickable />
             </div>
-            <Typography className="infocard-content">
-              {content}
+            <div className="infocard-content-title">
+              <Typography className="infocard-content-title-link">
+                <strong>{title}</strong>
+              </Typography>
+            </div>
+          </div>
+          <Typography className="infocard-content">
+            {content}
+          </Typography>
+        </div>
+      </div>
+
+      <Divider />
+
+      <div className="infocard-downward">
+        <div className="infocard-action-div">
+            <Tooltip title={`The page was last updated on ${dateString}`} aria-label="last updated date">
+              <Typography className="infocard-action-content">
+                <DateRangeIcon />
+                {dateString}
+              </Typography>
+            </Tooltip>
+          </div>
+          <div className="infocard-action-div">
+            <Typography className="infocard-action-content">
+              <ChatOutlinedIcon />
+              {commentNumber}条评论
             </Typography>
           </div>
-        </div>
-      </CardContent>
-      <CardActions >
-        <div className="infocard-action-div">
-          <Tooltip title={`The page was last updated on ${dateString}`} aria-label="last updated date">
+          <div className="infocard-action-div">
             <Typography className="infocard-action-content">
-              <DateRangeIcon />
-              {dateString}
+              <ThumbUpAltOutlinedIcon />
+              {starNumber}个点赞
             </Typography>
-          </Tooltip>
-        </div>
-        <div className="infocard-action-div">
-          <Typography className="infocard-action-content">
-            <ChatOutlinedIcon />
-            {commentNumber}条评论
-          </Typography>
-        </div>
-        <div className="infocard-action-div">
-          <Typography className="infocard-action-content">
-            <ThumbUpAltOutlinedIcon />
-            {starNumber}个点赞
-          </Typography>
-        </div>
-        <div className="infocard-action-link-div">
-          <Link href={linkURL} target="_blank" rel="noopener" onClick={() => alert("click")} >
-            阅读全文
-          </Link>
-        </div>
-      </CardActions>
-    </Card>
+          </div>
+          <div className="infocard-action-div" style={{float: "right",}}>
+              <Link href={linkURL} target="_blank" rel="noopener" onClick={() => alert("click")} className="infocard-action-content">
+                <Button 
+                  className="infocard-action-content"
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  endIcon={<ArrowForwardIcon />}>
+                  阅读全文
+                </Button>
+              </Link>
+          </div>
+      </div>
+    </Paper>
+
+    
   );
 }
 
-function Index() {
-    return (
-        <div className="main">
-            <Header />
-        </div>
-    );
+
+
+
+
+function Footer() {
+
+  return (
+    <div className="footer">
+      <div className="footer-icon-div">
+        <Tooltip title="visit my github repos" arrow placement="top">
+          <IconButton color="action" aria-label="Github Icon">
+            <GitHubIcon className="footer-icon" fontSize="large"  />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="send email to me" arrow placement="top">
+          <IconButton color="action" aria-label="Email Icon">
+            <EmailIcon  className="footer-icon" fontSize="large"  />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="visit my LinkedIn" arrow placement="top">
+          <IconButton color="action" aria-label="LinkedIn Icon">
+            <LinkedInIcon className="footer-icon" fontSize="large" />
+          </IconButton>
+        </Tooltip>
+      </div>
+      <div className="footer-text-div">
+        <Typography className="footer-text" style={{lineHeight: "200%",}}>
+          COPYRIGHT © 2021 刘宇轩的博客. ALL RIGHTS RESERVED.
+          <br />
+          THEME <Link href="https://github.com/vtrois/kratos">KRATOS</Link> MADE BY <Link href="https://www.vtrois.com/">VTROIS</Link>
+          <br />
+        </Typography>
+      </div>
+    </div>
+  );
 }
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Index />
-    <InfoCard info={infocard} />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
 
 
 
+
+function Test() {
+  return (
+    <div>
+      <div className="left"></div>
+      <div className="right"></div>
+    </div>
+  )
+}
 
 
 
@@ -136,6 +262,31 @@ function CreateInfoCard(imageURL, tag, title, content, date, commentNumber, star
   this.commentNumber = commentNumber;
   this.starNumber = starNumber;
   this.linkURL = linkURL;
+
+  function tagToURL(tag) {
+    switch(tag) {
+      case "前端":
+        return "https://www.baidu.com/";
+      case "后端":
+        return "https://www.mi.com/";
+      default:
+        console.log(`undefined tag ${tag}`);
+        return "/";
+    }
+  }
+}
+
+
+function CreateInfoCardByObject(obj) {
+  this.imageURL = obj.imageURL;
+  this.tag = obj.tag;
+  this.tagURL = tagToURL(obj.tag);
+  this.title = obj.title;
+  this.content = obj.content;
+  this.date = obj.date;
+  this.commentNumber = obj.commentNumber;
+  this.starNumber = obj.starNumber;
+  this.linkURL = obj.linkURL;
 
   function tagToURL(tag) {
     switch(tag) {
