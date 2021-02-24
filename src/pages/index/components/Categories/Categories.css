@@ -1,0 +1,11 @@
+/* ------------------
+ * !!! Categories !!!
+ * ------------------ */
+ .category {
+    border: 2px solid red;
+    max-width: 100%;
+    background-color: white;
+}
+.category-title {
+    border: 2px solid blue;
+}

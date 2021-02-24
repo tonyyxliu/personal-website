@@ -36,66 +36,9 @@ a, a:link, a:hover, a:visited, a:focus {
 
 
 
-
-/* --------------
- * !!! Header !!!
- * -------------- */
-.heading {
-    position: relative;
-    width: 100%;
-}
-.header-background {
-    max-width: 100%;
-    max-height: 100%;
-    -webkit-filter: brightness(0.9);
-    filter: brightness(0.9);
-    z-index: -1;
-    -webkit-user-drag: none;
-    user-select: none;
-}
-.header-title {
-    position: absolute;
-    top: 3vh;
-    left: 8vw;
-}
-.title {
-    color: #FFFFFF;
-    font-size: 20px;
-}
-.title:hover {
-    opacity: 80%;
-}
-.header-text {
-    position: absolute;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -40%);
-    color: white;
-    font-size: 26px;
-    line-height: 200%;
-    text-shadow: 2px 2px 2px gray;
-}
-
-
-
 /* ------------
  * !!! Main !!!
  * ------------ */
-/* .main-outer-div {
-    border: 2px solid red;
-    height: 100%;
-    /* Here, cannot write width: 100% otherwise there will be extra horizontal space 
-    max-width: 100%;
-    padding-top: 3vh;
-    padding-bottom: 3vh;
-    padding-left: 10vw;
-    padding-right: 10vw;
-}
-.main-inner-div {
-    border: 2px solid blue;
-    display: table;
-} */
 .main {
     border: 2px solid blue;
     display: table;
@@ -108,110 +51,16 @@ a, a:link, a:hover, a:visited, a:focus {
     padding-right: 9vw;
 }
 .main-left {
+    border: 2px solid red;
     display: table-cell;
-    width: 60%;
-    background-color: green;
+    width: 65%;
+    padding-left: 1vw;
+    padding-right: 1vw;
 }
 .main-right {
+    border: 2px solid orange;
     display: table-cell;
-    width: 40%;
-    background-color: yellow;
-}
-
-
-/* ----------------
- * !!! InfoCard !!!
- * ---------------- */
-.infocard {
-    width: 60vw;
-    padding: 0;
-    margin-top: 3vh;
-    margin-bottom: 3vh;
-}
-.infocard-upper {
-    padding-top: 1vh;
-    padding-bottom: 1vh;
-    margin: 0;
-}
-.infocard-img-div {
     width: 35%;
-    height: 100%;
-    display: inline-block;
-}
-.infocard-img {
-    max-width: 85%;
-    max-height: 85%;
-    display: block;
-    margin: auto;
-}
-
-.infocard-content-div {
-    width: calc(65% - 2vw);
-    height: 100%;
-    float: right;
-    padding-right: 2vw;
-}
-.infocard-content-title {
-    display: inline-block;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-.infocard-content-title-link:hover {
-    color: rgba(0, 151, 239);
-}
-.infocard-content {
-    display: inline-block;
-    text-align: justify
-}
-
-.infocard-downward {
-    width: calc(100%-4px);
-    padding-top: 1vh;
-    padding-bottom: 2vh;
-    
-}
-.infocard-action-div {
-    margin-left: 10px;
-    margin-right: 10px;
-    display: inline-block;
-    vertical-align: middle;
-}
-.infocard-action-content {
-    /* 设置上下居中对齐 */
-    display: flex;
-    align-items: center;
-}
-
-
-
-
-/* --------------
- * !!! Footer !!!
- * -------------- */
-.footer {
-    background-color: rgba(35, 40, 45);
-    width: 100%;
-    bottom: 0;
-    padding-top: 3vh;
-    padding-bottom: 3vh;
-}
-.footer-icon-div {
-    text-align: center;
-    margin-top: 3vh;
-    margin-bottom: 3vh;
-}
-.footer-icon {
-    color: rgba(142, 142, 142);
-}
-.footer-icon:hover {
-    color: rgba(0, 151, 238);
-}
-.footer-text-div {
-    text-align: center;
-    margin-top: 3vh;
-    margin-bottom: 3vh;
-}
-.footer-text {
-    font-size: 28px;
-    color: gray;
+    padding-left: 1vw;
+    padding-right: 1vw;
 }

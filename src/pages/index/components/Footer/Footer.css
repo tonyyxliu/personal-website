@@ -1,0 +1,30 @@
+/* --------------
+ * !!! Footer !!!
+ * -------------- */
+ .footer {
+    background-color: rgba(35, 40, 45);
+    width: 100%;
+    bottom: 0;
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+}
+.footer-icon-div {
+    text-align: center;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+}
+.footer-icon {
+    color: rgba(142, 142, 142);
+}
+.footer-icon:hover {
+    color: rgba(0, 151, 238);
+}
+.footer-text-div {
+    text-align: center;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+}
+.footer-text {
+    font-size: 28px;
+    color: gray;
+}

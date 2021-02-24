@@ -1,0 +1,33 @@
+/* --------------
+ * !!! Author !!!
+ * -------------- */
+ .author {
+    background-color: white;
+}
+.author-background {
+    /* border: 2px solid blue; */
+    position: relative;
+    margin-bottom: 8vmin;
+}
+.author-background img {
+    max-width: 100%;
+    max-height: 100%;
+    z-index: -1;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+.author-avatar {
+    position: absolute;
+    z-index: 10;
+    top: 100%;
+    left: 50%;
+    /* left: 50%; */
+    transform: translate(-50%, -50%);
+}
+.author-info {
+    text-align: center;
+}
+.author-bottom {
+    text-align: right;
+    padding-right: 1vw;
+}
