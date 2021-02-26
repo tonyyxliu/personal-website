@@ -1,0 +1,29 @@
+body {
+    background-color: rgb(245, 245, 245);
+}
+
+.footer {
+    background-color: rgba(35, 40, 45);
+    text-align: center;
+    width: 100%;
+    color: white;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+}
+
+
+.editor {
+    border: 2px solid rgba(35, 40, 45);
+}
+
+.form-item {
+    /* border: 2px solid blue; */
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+
+.output-content {
+    border: 2px solid orange;
+}

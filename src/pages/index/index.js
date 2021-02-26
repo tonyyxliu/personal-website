@@ -77,7 +77,7 @@ function BlogEditor(props) {
 
   useEffect( () => {
     let cookie_admin = getCookie( "admin" );
-    alert( `cookie_admin = ${cookie_admin}` );
+    // alert( `cookie_admin = ${cookie_admin}` );
     setIsAdmin( cookie_admin );
   }, [] );
 
@@ -87,6 +87,10 @@ function BlogEditor(props) {
     }
   }
 
+  function handleClick() {
+    window.location.href = "http://127.0.0.1:3000/editor.html";
+  }
+
   return (
     <div className="blog-editor-div">
       { isAdmin && (
@@ -94,6 +98,7 @@ function BlogEditor(props) {
         color="primary" 
         variant="contained" 
         style={styles.button}
+        onClick={handleClick}
       >
         编辑博客内容
       </Button>

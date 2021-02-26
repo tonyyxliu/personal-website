@@ -57,6 +57,7 @@ export default function SignIn() {
   const [ password, setPassword ] = useState("");
 
   const [ dialogOpen, setDialogOpen ] = useState( false );
+  const [ loginStatus, setLoginStatus ] = useState( false );
 
   function handleChange(event) {
     switch( event.target.name ) {
@@ -81,11 +82,15 @@ export default function SignIn() {
 
     /* 用户点击弹出框的“OK”按钮之后，新建一个admin: true的cookie以标识管理员，此后cookie即刻失效 */
     // alert( `document.cookie before = ${ document.cookie }` );
-    setCookie( "admin", true, { 'max-age': 100 } );
-    // alert( `document.cookie after = ${ document.cookie }` );
 
-    /* 跳转回主界面，在主界面中检验cookie admin的值从而添加管理员编辑入口 */
-    window.location.href = "/";
+    if ( loginStatus === true ) {
+      setCookie( "admin", true, { 'max-age': 100 } );
+      // alert( `document.cookie after = ${ document.cookie }` );
+
+      /* 跳转回主界面，在主界面中检验cookie admin的值从而添加管理员编辑入口 */
+      window.location.href = "/";
+    }
+    
   }
 
   async function handleFormSubmit(form) {
@@ -111,25 +116,27 @@ export default function SignIn() {
         mode: "cors",
         headers:{
           "Content-type":"application/json",
-          "Access-Control-Allow-Origin": "*",
         },
         body: JSON.stringify( POSTobj ),
       }) );
   
       if (resp.ok) {
         let json = await( resp.json() );
-        alert( `resp.json = ${json} and JSON.stringify(json) = ${JSON.stringify(json)}` );
+        // alert( `resp.json = ${json} and JSON.stringify(json) = ${JSON.stringify(json)}` );
 
         // 登陆成功
         if ( json["pass"] === true ) {
-          alert("correct");
+          // alert("correct");
 
           /* 调出显示“登陆成功”的Dialog小窗口 */
+          setLoginStatus( true );
           setDialogOpen( true );
         }
         // 登陆失败
         else {
-          alert("unidentified user");
+          setLoginStatus( false )
+          setDialogOpen( true );
+          // alert("unidentified user");
         }
       }
     }
@@ -218,7 +225,7 @@ export default function SignIn() {
       >
         <DialogContent>
           <DialogContentText>
-            登陆成功
+            {loginStatus? "登陆成功" : "账号或密码不正确"}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -227,6 +234,7 @@ export default function SignIn() {
           </Button>
         </DialogActions>
       </Dialog>
+
     </Container>
   );
 }
