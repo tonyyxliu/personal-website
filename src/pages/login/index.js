@@ -4,15 +4,12 @@ import ReactDOM from 'react-dom';
 import reportWebVitals from '../../reportWebVitals';
 
 
-// import HomePage from './pages/HomePage';
+import SignIn from './components/SignIn/SignIn';
 
-alert("Login");
 
 function Login() {
     return (
-        <div>
-            This is Login Page.
-        </div>
+        <SignIn />
     );
 }
 

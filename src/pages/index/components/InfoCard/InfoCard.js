@@ -16,7 +16,7 @@ const infoObj = {
     imageURL: "../../assets/gravatar.png",
     tag: "前端",
     title: "使用rollup和typescript搭建自己的函数库",
-    content: "简介 每当在项目中需要使用一些工具函数时，一般需要去引入一些第三方的工具库，而像lodash这样的工具库又体积很大，影响打包后整个项目的大小。所以封装自己的代码库就很必要了。 本篇文章将介绍如何使用rollup工具生成自己的代码库； 为了提高代码可维护性，将使用typescript编写代码； 为了保",
+    content: "简介 每当在项目中需要使用一些工具函数时，一般需要去引入一些第三方的工具库，而像lodash这样的工具库又体积很大，影响打包后整个项目的大小。所以封装自己的代码库就很必要了。 本篇文章将介绍如何使用rollup工具生成自己的代码库",
     date: new Date(),
     commentNumber: 189,
     starNumber: 200,
@@ -42,7 +42,7 @@ export default function InfoCard(props) {
         <div className="infocard-upper">
           <div className="infocard-img-div">
             <a href={linkURL} target="_blank" rel="noreferrer">
-              <img src="https://picsum.photos/536/354" alt="card" className="infocard-img" />
+              <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1365064717,1310351409&fm=26&gp=0.jpg" alt="card" className="infocard-img" />
             </a>
           </div>
           <div className="infocard-content-div">

@@ -14,6 +14,9 @@ export default function Header() {
           <div className="header-title">
             <a className="title" href="/">刘宇轩的个人博客</a>
           </div>
+          <div className="header-admin-login">
+            <a className="title" href="/login.html">管理员登录</a>
+          </div>
           <div className="header-text">
             刘宇轩
             <br />

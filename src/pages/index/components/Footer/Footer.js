@@ -61,6 +61,7 @@ export default function Footer() {
             <br />
             THEME <Link href="https://github.com/vtrois/kratos">KRATOS</Link> MADE BY <Link href="https://www.vtrois.com/">VTROIS</Link>
             <br />
+            THEME FIRST FOUND IN <Link href="https://www.iwowen.cn/">IWOMEN'S BLOG</Link>
           </Typography>
         </div>
       </div>

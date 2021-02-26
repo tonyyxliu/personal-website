@@ -64,3 +64,14 @@ a, a:link, a:hover, a:visited, a:focus {
     padding-left: 1vw;
     padding-right: 1vw;
 }
+
+
+
+
+/* -------------------
+ * !!! Blog Editor !!!
+ * ------------------- */
+.blog-editor-div {
+    border: 2px solid red;
+    text-align: center;
+}

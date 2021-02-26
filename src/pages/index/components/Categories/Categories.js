@@ -30,6 +30,8 @@ function TabPanel(props) {
       },
       button: {
         width: "90%",
+        marginTop: "3vmin",
+        marginBottom: "3vmin",
       },
     };
   
@@ -42,12 +44,11 @@ function TabPanel(props) {
         {...other}
       >
         {value === index && (
-          <Grid container spacing={3} >
+          <Grid container spacing={0}>
             {children.map(function(item, index) {
               return (
                 <Grid item xs={12} sm={6} style={styles.gridItem}>
                   <Button 
-                    className="category-button" 
                     style={styles.button}
                     variant="outlined"
                     key={index}>
