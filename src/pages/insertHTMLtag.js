@@ -2,6 +2,7 @@
  * !!! insertHTMLtag Function Library !!!
  * --------------------------------------
  * 动态导入<script>, <link>等HTML标签
+ * （insertScriptByCode尚有bug，待修复）
  */  
 
 export function insertScriptBySrc( src ) {
@@ -17,6 +18,8 @@ export function insertScriptBySrc( src ) {
 }
 
 
+
+/* 有bug，待修复 */
 export function insertScriptByCode( codeText ) {
     let script = document.createElement("script");
     script.type = "text/javascript";
