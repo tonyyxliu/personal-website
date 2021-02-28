@@ -4,6 +4,7 @@ import  "react-app-polyfill/stable";
 
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, IndexRoute, HashRouter, Route, hashHistory } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import reportWebVitals from '../../reportWebVitals';
 import 'fontsource-roboto';
@@ -39,7 +40,12 @@ function Index() {
 
 ReactDOM.render(
 <React.StrictMode>
-  <Index />
+  <Router>
+    <Route exact path="/" component={Index} />
+    <Route path="/header" component={Header} />
+    <Route path="/footer" component={Footer} />
+    <Route path="/blogs/article/:hashcode" component={Footer} />
+  </Router>
 </React.StrictMode>,
 document.getElementById('root')
 );

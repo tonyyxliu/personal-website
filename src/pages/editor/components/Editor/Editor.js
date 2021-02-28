@@ -9,6 +9,10 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 
+/* 引入样式表 */
+import './Editor.css';
+
+/* 引入富文本编辑器 */
 import BraftEditor from 'braft-editor';
 import 'braft-editor/dist/index.css';
 

@@ -1,0 +1,12 @@
+.editor {
+    border: 2px solid rgba(35, 40, 45);
+}
+
+
+.form-item {
+    /* border: 2px solid blue; */
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    padding-left: 2vw;
+    padding-right: 2vw;
+}

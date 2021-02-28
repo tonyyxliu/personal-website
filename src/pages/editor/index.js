@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Container } from '@material-ui/core';
-
+import { BrowserRouter as Router, IndexRoute, HashRouter, Route, hashHistory } from 'react-router-dom';
 import reportWebVitals from '../../reportWebVitals';
 
 /* 引入样式表 */
@@ -27,7 +27,10 @@ ReactDOM.render(
   // <React.StrictMode>
   //   <Main />
   // </React.StrictMode>,
-  <Main />,
+  <Router>
+    <Route exact path="/editor.html" component={Main} />
+    <Route exact path="/blogs/article/:hashcode" component={Footer} />
+  </Router>,
   document.getElementById('root')
 );
 
