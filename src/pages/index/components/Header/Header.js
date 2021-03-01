@@ -5,6 +5,9 @@ import BackgroundImage from "../../../../assets/images/background.png";
 import './Header.css';
 
 
+/* 引入路由路径 */
+import { adminLoginPath } from '../../../../router/Config';
+
 
 
 export default function Header() {
@@ -15,7 +18,7 @@ export default function Header() {
             <a className="title" href="/">刘宇轩的个人博客</a>
           </div>
           <div className="header-admin-login">
-            <a className="title" href="/login.html">管理员登录</a>
+            <a className="title" href={ adminLoginPath }>管理员登录</a>
           </div>
           <div className="header-text">
             刘宇轩

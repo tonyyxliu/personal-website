@@ -4,7 +4,7 @@ import  "react-app-polyfill/stable";
 
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, IndexRoute, HashRouter, Route, hashHistory } from 'react-router-dom';
+
 import { Button } from '@material-ui/core';
 import reportWebVitals from '../../reportWebVitals';
 import 'fontsource-roboto';
@@ -27,8 +27,15 @@ import { categoryList } from './components/Categories/Categories';
 import { getCookie, setCookie, deleteCookie } from '../cookie';
 
 
+/* 引入路由器 */
+import MyRouter from '../../router/Router';
 
-function Index() {
+/* 引入路由路径 */
+import { createNewBlogPath } from '../../router/Config';
+
+
+
+export default function Index() {
   return (
       <div className="mainbody">
         <Header />
@@ -38,14 +45,12 @@ function Index() {
   );
 }
 
+
+
+/* 路由DOM渲染 */
 ReactDOM.render(
 <React.StrictMode>
-  <Router>
-    <Route exact path="/" component={Index} />
-    <Route path="/header" component={Header} />
-    <Route path="/footer" component={Footer} />
-    <Route path="/blogs/article/:hashcode" component={Footer} />
-  </Router>
+  <MyRouter />
 </React.StrictMode>,
 document.getElementById('root')
 );
@@ -94,7 +99,8 @@ function BlogEditor(props) {
   }
 
   function handleClick() {
-    window.location.href = "http://127.0.0.1:3000/editor.html";
+    // window.location.href = "http://127.0.0.1:3000/editor.html";
+    window.location.href = createNewBlogPath;
   }
 
   return (
