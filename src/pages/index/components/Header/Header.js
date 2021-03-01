@@ -23,7 +23,7 @@ export default function Header() {
           <div className="header-text">
             刘宇轩
             <br />
-            记录和分享技术
+            从零开始的程序员生活
         </div>
       </div>
     );

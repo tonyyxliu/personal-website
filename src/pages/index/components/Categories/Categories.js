@@ -47,7 +47,7 @@ function TabPanel(props) {
           <Grid container spacing={0}>
             {children.map(function(item, index) {
               return (
-                <Grid item xs={12} sm={6} style={styles.gridItem}>
+                <Grid item xs={12} sm={6} style={styles.gridItem} key={index}>
                   <Button 
                     style={styles.button}
                     variant="outlined"
@@ -100,7 +100,7 @@ export default function Categories(props) {
 
         {Object.keys(props.categoryList).map(function(ele, index) {
             return (
-            <TabPanel value={AppBarValue} index={index}>
+            <TabPanel value={AppBarValue} index={index} key={index}>
                 {props.categoryList[ele]}
             </TabPanel>
             );

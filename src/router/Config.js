@@ -33,7 +33,7 @@ let Config = [   {
 	name: "根据hashcode访问博客",
 	path: "/blogs/article/:hashcode",
 	exact: true,
-	component: lazy( () => import("../pages/index/components/Footer/Footer") )
+	component: lazy( () => import("../pages/displayBlog/index") ),
 }
 ];
 

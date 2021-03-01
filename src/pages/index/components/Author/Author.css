@@ -1,8 +1,10 @@
 /* --------------
  * !!! Author !!!
  * -------------- */
- .author {
+.author {
     background-color: white;
+    padding-bottom: 1vh;
+    margin-bottom: 3vh;
 }
 .author-background {
     /* border: 2px solid blue; */

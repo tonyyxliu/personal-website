@@ -15,6 +15,8 @@ import './Editor.css';
 /* 引入富文本编辑器 */
 import BraftEditor from 'braft-editor';
 import 'braft-editor/dist/index.css';
+import 'braft-editor/dist/output.css';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +38,7 @@ export default function Editor() {
   
     /* Braft-Editor相关变量 */
     const [ editorState, setEditorState ] = useState( BraftEditor.createEditorState(null) );
-    const [ outputHTML, setOutputHTML ] = useState( null );
+    // const [ outputHTML, setOutputHTML ] = useState( null );
   
   
     /* 文章数据 */
@@ -135,6 +137,7 @@ export default function Editor() {
         alignItems: "center",
         lineHeight: "300%",
         fontWeight: "bold",
+        color: "black",
       },
       textfield: {
         width: "30vw",
@@ -164,11 +167,11 @@ export default function Editor() {
   
   
         <form>
-        <div className="title form-item">
+        <div className="form-item">
           <Grid container spacing={2}>
             <Grid item xs={2}>
               <Typography style={styles.typography}>
-                文章标题：
+                文章标题:
               </Typography>
             </Grid>
             <Grid item xs={6}>
@@ -190,7 +193,7 @@ export default function Editor() {
           <Grid container spacing={2}>
             <Grid item xs={2}>
               <Typography style={styles.typography}>
-                文章类型
+                文章类型:
               </Typography>
             </Grid>
             <Grid item xs={6}>
@@ -214,7 +217,7 @@ export default function Editor() {
           <Grid container spacing={2}>
             <Grid item xs={2}>
               <Typography style={styles.typography}>
-                配图链接
+                配图链接:
               </Typography>
             </Grid>
             <Grid item xs={6}>
@@ -246,6 +249,9 @@ export default function Editor() {
         value={editorState} 
         onChange={handleChange}
       />
+
+      {/* 给用于展示HTML内容的容器加上特定的className */}
+      {/* <div className="braft-output-content" dangerouslySetInnerHTML={{__html: editorState.toHTML()}}></div> */}
   
       
       { /* 测试toHTML()方法是否可用 */ }

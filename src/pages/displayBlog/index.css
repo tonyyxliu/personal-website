@@ -27,9 +27,6 @@ a, a:link, a:hover, a:visited, a:focus {
 
 
 /* 设置全页面背景色 */
-.mainbody-outer {
-    overflow: hidden;
-}
 .mainbody {
     background-color: rgb(245, 245, 245);
 }
@@ -78,4 +75,34 @@ a, a:link, a:hover, a:visited, a:focus {
 .blog-editor-div {
     /* border: 2px solid red; */
     text-align: center;
+}
+
+
+
+
+/* ----------------------------
+ * !!! display blog content !!!
+ * ---------------------------- */
+.blog-main {
+    /* border: 2px solid purple; */
+    padding-top: 2vh;
+}
+
+.blog-header {
+    /* border: 2px solid yellow; */
+    width: 100%;
+}
+.blog-header-title {
+    /* border: 2px solid blue; */
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+.blog-header-info {
+    /* border: 2px solid orange; */
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+
+.blog-content {
+    /* border: 2px solid green; */
 }

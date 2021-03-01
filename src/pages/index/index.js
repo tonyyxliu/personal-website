@@ -18,6 +18,7 @@ import InfoCard from './components/InfoCard/InfoCard';
 import Author from './components/Author/Author';
 import Categories from './components/Categories/Categories';
 import Footer from './components/Footer/Footer';
+import BreadCrumb from './components/BreadCrumb/BreadCrumb';
 
 /* 引入全局变量 */
 import { infocard, infocard2 } from './components/InfoCard/InfoCard';
@@ -32,14 +33,54 @@ import MyRouter from '../../router/Router';
 
 /* 引入路由路径 */
 import { createNewBlogPath } from '../../router/Config';
+import { getAllblogInfo } from "../../api/backend";
 
+
+
+
+function MainLeft(props) {
+  const [ infoObjList, setInfoObjList ] = useState( {} );
+
+  useEffect( () => {
+    const getInfoObjList = async () => {
+      setInfoObjList( await( getAllblogInfo() ) );
+    };
+
+    getInfoObjList();    
+    console.log( `infoObjList = ${infoObjList} with type = ${ Object.prototype.toString.call(infoObjList) }` );
+
+
+    // getAllblogInfo()
+    //   .then( resp => {
+    //     console.log(`resp = ${resp} with type = ${ Object.prototype.toString.call(resp) }`);
+    //     setInfoObjList(resp);
+    //   } )
+    //   .catch( error => {
+    //     console.log(`Error in MainLeft useState: ${error}`);
+    //     return null;
+    //   } );
+  }, [] );
+
+  return (
+    <div>
+      <BreadCrumb />
+      {
+        infoObjList.map( (item, index) => {
+          return <InfoCard info={item} key={index} />
+        } )
+      }
+      <InfoCard info={infocard} />
+      <InfoCard info={infocard2} />
+    </div>
+  );
+}
 
 
 export default function Index() {
   return (
       <div className="mainbody">
         <Header />
-        <Main />
+        <Main leftComponent={<MainLeft />} />
         <Footer />
       </div>
   );
@@ -63,12 +104,13 @@ reportWebVitals();
 
 
 
-function Main(props) {
+export function Main(props) {
   return (
     <div className="main">
       <div className="main-left">
-        <InfoCard info={infocard} />
-        <InfoCard info={infocard2} />
+        {/* <InfoCard info={infocard} />
+        <InfoCard info={infocard2} /> */}
+        {props.leftComponent}
       </div>
       <div className="main-right">
         <Author />
