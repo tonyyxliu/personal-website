@@ -34,7 +34,7 @@ export default function IconBreadcrumbs(props) {
 
   return (
     <div>
-			<div class="nowhere">
+			<div className="nowhere">
 				<Breadcrumbs aria-label="breadcrumb">
 				<Link color="inherit" href="/" onClick={handleClick} className={classes.link}>
 						<HomeIcon className={classes.icon} />

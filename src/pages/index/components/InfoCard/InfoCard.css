@@ -2,7 +2,8 @@
  * !!! InfoCard !!!
  * ---------------- */
  .infocard {
-    max-width: 60vw;
+    /* border: 2px solid red; */
+    max-width: 100%;
     padding: 0;
     margin-top: 3vh;
     margin-bottom: 3vh;
@@ -28,21 +29,77 @@
 .infocard-content-div {
     width: calc(65% - 2vw);
     height: 100%;
+    max-width: 100%;
     float: right;
     padding-right: 2vw;
+
+    /* newly introduced */
+    /* overflow: hidden; */
 }
+
+/* .infocard-content-tag {
+    border: 2px solid red;
+    float: left;
+    width: 20%;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+.infocard-content-title {
+    border: 2px solid blue;
+    float: left;
+    width: 80%;
+    vertical-align: middle;
+
+    text-overflow:ellipsis; 
+    overflow: hidden;
+    white-space: nowrap;
+} */
+
 .infocard-content-title {
     display: inline-block;
     margin-left: 5px;
     margin-right: 5px;
+
+    vertical-align: middle;
+    /* border: 2px solid red; */
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow:ellipsis; 
+    white-space: nowrap;
+} 
+.infocard-content-title-link {
+    display: inline-block;
+    vertical-align: middle;
+
+
+    /* border: 2px solid red; */
+    max-width: 100%;
+
+    /* 设置单行文本超过宽度时的省略号 */
+    overflow:hidden;
+    text-overflow:ellipsis; 
+    white-space: nowrap;
 }
 .infocard-content-title-link:hover {
     color: rgba(0, 151, 239);
 }
-.infocard-content {
+.infocard-content-text {
+    /* border: 2px solid red; */
+    overflow:hidden;
+    text-overflow:ellipsis; 
+    /* background: greenyellow; */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+
+    /* padding-top: 1vh;
+    padding-bottom: 1vh; */
+    line-height: 150%;
+}
+/* .infocard-content {
     display: inline-block;
     text-align: justify
-}
+} */
 
 .infocard-downward {
     width: calc(100%-4px);

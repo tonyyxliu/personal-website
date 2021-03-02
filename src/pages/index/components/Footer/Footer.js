@@ -25,8 +25,7 @@ export default function Footer() {
             <IconButton 
 							href="https://github.com/tonyLyx1"
 							target="_blank"
-							rel="noreferrer"
-							color="action" 
+							rel="noreferrer" 
 							aria-label="Github Icon"
 						>
               <GitHubIcon className="footer-icon" fontSize="large"  />
@@ -36,8 +35,7 @@ export default function Footer() {
             <IconButton 
 							href="mailto: 118010200@link.cuhk.edu.cn"
 							target="_blank"
-							rel="noreferrer"
-							color="action" 
+							rel="noreferrer" 
 							aria-label="Email Icon"
 						>
               <EmailIcon  className="footer-icon" fontSize="large"  />
@@ -48,7 +46,6 @@ export default function Footer() {
               href="https://www.linkedin.com/in/%E5%AE%87%E8%BD%A9-%E5%88%98-693b63207/" 
 							target="_blank"
 							rel="noreferrer"
-							color="action" 
 							aria-label="LinkedIn Icon"
 						>
               <LinkedInIcon className="footer-icon" fontSize="large" />

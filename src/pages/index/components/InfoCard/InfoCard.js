@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'fontsource-roboto';
 import { Tooltip, Typography, Divider, Paper, Button } from '@material-ui/core';
 import Chip from '@material-ui/core/Chip';
@@ -8,22 +8,9 @@ import ChatOutlinedIcon from '@material-ui/icons/ChatOutlined';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
+/* 引入样式表 */
 import './InfoCard.css';
 
-
-/* Global Variables */
-const infoObj = {
-    imageURL: "../../assets/gravatar.png",
-    tag: "前端",
-    title: "使用rollup和typescript搭建自己的函数库",
-    content: "简介 每当在项目中需要使用一些工具函数时，一般需要去引入一些第三方的工具库，而像lodash这样的工具库又体积很大，影响打包后整个项目的大小。所以封装自己的代码库就很必要了。 本篇文章将介绍如何使用rollup工具生成自己的代码库",
-    date: new Date(),
-    commentNumber: 189,
-    starNumber: 200,
-    linkURL: "https://www.mi.com/",
-  };
-export const infocard = new CreateInfoCard("../../assets/gravatar.png", "前端", "this is a title","daiodjiawodjawojodjwaiodjawiojmskamcnnieojofjewfjm", new Date(), 123, 123, "https://www.baidu.com/");
-export const infocard2 = new CreateInfoCardByObject(infoObj);
 
 
 
@@ -33,16 +20,38 @@ export default function InfoCard(props) {
     const tagURL = props.info.tagURL;
     const title = props.info.title;
     const content = props.info.content;
-    const dateString = dateToString(props.info.date);
+    const dateString = mysqlDateToString(props.info.date);
     const commentNumber = props.info.commentNumber;
     const starNumber = props.info.starNumber;
-    const linkURL = props.info.linkURL;
+    const hashCode = props.info.hashCode;
+
+    const baseURL = "http://localhost:3000";
+    const linkURL = `${baseURL}/blogs/article/${hashCode}`;
+
+    const [ contentString, setContentString ] = useState("");
+
+    useEffect( () => {
+      // 先用contentStringTemp储存所有的text值，然后将它赋值给state hook：contentString
+      console.log(`imageURL = ${ imageURL } with type = ${ Object.prototype.toString.call(imageURL) }`);
+
+      let contentStringTemp = "";
+      // 需要将JSON字符串parse为JSON对象
+      let contentJSON = JSON.parse(content);
+      let dataBlockArray = contentJSON["blocks"];
+
+      dataBlockArray.forEach( (item) => {
+        contentStringTemp += item["text"];
+      } )
+      setContentString( contentStringTemp );
+    }, [] );
+
+
     return (
       <Paper elevation={3} className="infocard">
         <div className="infocard-upper">
           <div className="infocard-img-div">
             <a href={linkURL} target="_blank" rel="noreferrer">
-              <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1365064717,1310351409&fm=26&gp=0.jpg" alt="card" className="infocard-img" />
+              <img src={ require("../../../../assets/images/author_background.jpg").default } alt="card" className="infocard-img" />
             </a>
           </div>
           <div className="infocard-content-div">
@@ -51,14 +60,23 @@ export default function InfoCard(props) {
                 <Chip label={tag} component="a" href={tagURL} target="_blank" color="primary" rel="noopener" clickable />
               </div>
               <div className="infocard-content-title">
-                <Typography className="infocard-content-title-link">
-                  <strong>{title}</strong>
+                <Typography>
+                  <Link 
+                    href={linkURL} 
+                    className="infocard-content-title-link" 
+                    color="inherit"
+                    style={{textDecoration: "none",}}
+                  >
+                    <strong>{title}</strong>
+                  </Link>
                 </Typography>
               </div>
             </div>
-            <Typography className="infocard-content">
-              {content}
-            </Typography>
+            <div className="infocard-content-text">
+              <Typography >
+                {contentString}
+              </Typography>
+            </div>
           </div>
         </div>
   
@@ -66,7 +84,7 @@ export default function InfoCard(props) {
   
         <div className="infocard-downward">
           <div className="infocard-action-div">
-              <Tooltip title={`The page was last updated on ${dateString}`} aria-label="last updated date">
+              <Tooltip title={`本文最后修改于${dateString}`} aria-label="last updated date">
                 <Typography className="infocard-action-content">
                   <DateRangeIcon />
                   {dateString}
@@ -86,7 +104,7 @@ export default function InfoCard(props) {
               </Typography>
             </div>
             <div className="infocard-action-div" style={{float: "right",}}>
-                <Link href={linkURL} target="_blank" rel="noopener" onClick={() => alert("click")} className="infocard-action-content">
+                <Link href={linkURL} target="_blank" rel="noopener" className="infocard-action-content">
                   <Button 
                     className="infocard-action-content"
                     variant="contained"
@@ -106,16 +124,16 @@ export default function InfoCard(props) {
 
 
 /* functions */
-function CreateInfoCard(imageURL, tag, title, content, date, commentNumber, starNumber, linkURL) {
-    this.imageURL = imageURL;
+export function CreateInfoCard(title, tag, imageURL, content, date, commentNumber, starNumber, hashCode) {
+    this.title = title;  
     this.tag = tag;
+    this.imageURL = imageURL;
     this.tagURL = tagToURL(tag);
-    this.title = title;
     this.content = content;
     this.date = date;
     this.commentNumber = commentNumber;
     this.starNumber = starNumber;
-    this.linkURL = linkURL;
+    this.hashCode = hashCode;
   
     function tagToURL(tag) {
       switch(tag) {
@@ -123,6 +141,8 @@ function CreateInfoCard(imageURL, tag, title, content, date, commentNumber, star
           return "https://www.baidu.com/";
         case "后端":
           return "https://www.mi.com/";
+        case "其他":
+          return "https://www.jd.com/";
         default:
           console.log(`undefined tag ${tag}`);
           return "/";
@@ -130,40 +150,13 @@ function CreateInfoCard(imageURL, tag, title, content, date, commentNumber, star
     }
 }
   
-  
-function CreateInfoCardByObject(obj) {
-    this.imageURL = obj.imageURL;
-    this.tag = obj.tag;
-    this.tagURL = tagToURL(obj.tag);
-    this.title = obj.title;
-    this.content = obj.content;
-    this.date = obj.date;
-    this.commentNumber = obj.commentNumber;
-    this.starNumber = obj.starNumber;
-    this.linkURL = obj.linkURL;
-  
-    function tagToURL(tag) {
-      switch(tag) {
-        case "前端":
-          return "https://www.baidu.com/";
-        case "后端":
-          return "https://www.mi.com/";
-        default:
-          console.log(`undefined tag ${tag}`);
-          return "/";
-      }
-    }
-}
-  
-  
-  
-function dateToString(date) {
-    console.log(`dateToString function: input date = ${date}`);
-    const year = date.getFullYear(date);
-    const month = date.getMonth(date) + 1;
-    const day = date.getDate(date);
-  
-    let output = `${year}年${month}月${day}日`;
-    console.log(`dateToString function: output date string = ${output}`)
-    return output;
+
+
+
+
+export function mysqlDateToString(date) {
+  let dateArray = date.split("-");
+  // console.log( `mysqlDateToString function: dateArray = ${ dateArray }` );
+
+  return `${dateArray[0]}年${dateArray[1]}月${dateArray[2]}日`;
 }

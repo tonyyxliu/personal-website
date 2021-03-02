@@ -21,12 +21,10 @@ import Footer from './components/Footer/Footer';
 import BreadCrumb from './components/BreadCrumb/BreadCrumb';
 
 /* 引入全局变量 */
-import { infocard, infocard2 } from './components/InfoCard/InfoCard';
 import { categoryList } from './components/Categories/Categories';
 
 /* 引入cookie函数库 */
 import { getCookie, setCookie, deleteCookie } from '../cookie';
-
 
 /* 引入路由器 */
 import MyRouter from '../../router/Router';
@@ -39,15 +37,18 @@ import { getAllblogInfo } from "../../api/backend";
 
 
 function MainLeft(props) {
-  const [ infoObjList, setInfoObjList ] = useState( {} );
+  const [ infoObjList, setInfoObjList ] = useState([]);
 
   useEffect( () => {
     const getInfoObjList = async () => {
-      setInfoObjList( await( getAllblogInfo() ) );
+      let resp = await( getAllblogInfo() );
+      // let json = resp.json();
+      setInfoObjList( resp );
+      // setInfoObjList( await( getAllblogInfo() ) );
     };
-
     getInfoObjList();    
-    console.log( `infoObjList = ${infoObjList} with type = ${ Object.prototype.toString.call(infoObjList) }` );
+    // console.log( `infoObjList = ${infoObjList} with type = ${ Object.prototype.toString.call(infoObjList) }` );
+
 
 
     // getAllblogInfo()
@@ -69,8 +70,6 @@ function MainLeft(props) {
           return <InfoCard info={item} key={index} />
         } )
       }
-      <InfoCard info={infocard} />
-      <InfoCard info={infocard2} />
     </div>
   );
 }

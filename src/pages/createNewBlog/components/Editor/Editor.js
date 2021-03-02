@@ -16,6 +16,7 @@ import './Editor.css';
 import BraftEditor from 'braft-editor';
 import 'braft-editor/dist/index.css';
 import 'braft-editor/dist/output.css';
+import { insertBlogInfoToDatabase } from '../../../../api/backend';
 
 
 
@@ -91,43 +92,44 @@ export default function Editor() {
         tag: blogTag,
         imageURL: imageURL,
         // content: JSON.stringify(editorState),
-        content: editorState.toRAW(),
+        content: editorState.toRAW(),   //transfer to JSON string
       };
+      // console.log( `getContent = ${ editorState.getCurrentContent() } with type = ${ Object.prototype.toString.call(editorState.getCurrentContent()) }` );
+
       // alert( `blog data obj = ${JSON.stringify(blogDataObj)}` );
   
-  
       /* 将博客数据POST到后端 */
-      const postURL = "http://127.0.0.1:8080/createblog";
-      try {
-        let resp = await( fetch( postURL, {
-          method: "POST",
-          mode: "cors",
-          headers: {
-            "Content-type":"application/json",
-          },
-          body: JSON.stringify( blogDataObj ),
-        } ) );
+      // const postURL = "http://127.0.0.1:8080/createblog";
+      // try {
+      //   let resp = await( fetch( postURL, {
+      //     method: "POST",
+      //     mode: "cors",
+      //     headers: {
+      //       "Content-type":"application/json",
+      //     },
+      //     body: JSON.stringify( blogDataObj ),
+      //   } ) );
   
-        if ( resp.ok ) {
-          // 测试POST是否成功
-          // alert( `resp.status = ${ resp.status } and status text = ${ resp.statusText }` );
-          let json = await( resp.json() );
-          // alert( `POST成功` );
-          // alert( `json = ${ JSON.stringify(json) }` );
-          // alert( `editorState.toHTML() = ${ outputHTML } and type = ${ typeof( outputHTML ) }` );
-        }
-        else {
-          alert( `fetch failed with status code = ${ resp.status } and status text = ${ resp.statusText }` );
-        }
+      //   if ( resp.ok ) {
+      //     // 测试POST是否成功
+      //     // alert( `resp.status = ${ resp.status } and status text = ${ resp.statusText }` );
+      //     let json = await( resp.json() );
+      //     // alert( `POST成功` );
+      //     // alert( `json = ${ JSON.stringify(json) }` );
+      //     // alert( `editorState.toHTML() = ${ outputHTML } and type = ${ typeof( outputHTML ) }` );
+      //   }
+      //   else {
+      //     alert( `fetch failed with status code = ${ resp.status } and status text = ${ resp.statusText }` );
+      //   }
+      // }
+      // catch( error ) {
+      //   console.log( `fetch failed with error = ${ error.mesg }`);
+      // }
+  
+      let status = await( insertBlogInfoToDatabase( blogDataObj ) );
+      if (status === true) {
+        alert( `文章已发布，请前往主页查看` );
       }
-      catch( error ) {
-        console.log( `fetch failed with error = ${ error.mesg }`);
-      }
-  
-  
-  
-      alert( `文章已发布，请前往主页查看` );
-      
     }
   
     const styles = {

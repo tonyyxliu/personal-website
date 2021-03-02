@@ -2,15 +2,16 @@ body {
     margin: 0;
     padding: 0;
 }
-html {
-    /*隐藏滚动条，当IE下溢出，仍然可以滚动*/
+/* html {
+    // 隐藏滚动条，当IE下溢出，仍然可以滚动
     -ms-overflow-style: none;
-    /*火狐下隐藏滚动条*/
+    // 火狐下隐藏滚动条
     overflow: -moz-hidden-unscrollable;
 }
 ::-webkit-scrollbar {
     display: none;
-}
+} */
+
 /* 设置全页面字体选中字体颜色和字体背景色 */
 ::selection {
     color:black;
@@ -41,19 +42,27 @@ a, a:link, a:hover, a:visited, a:focus {
  * ------------ */
 .main {
     /* border: 2px solid blue; */
-    display: table;
+    /* display: table; */
+
+    /* overflow: hidden解决float造成的塌陷问题 */
+    overflow: hidden;
+
     height: 100%;
     /* Here, cannot write width: 100% otherwise there will be extra horizontal space */
     max-width: 100%;
     padding-top: 3vh;
     padding-bottom: 5vh;
     padding-left: 9vw;
-    padding-right: 9vw;
+    padding-right: calc(9vw - 20px);
+    /* padding-right: 9vw; */
 }
 .main-left {
-    /* border: 2px solid red; */
+    /* border: 2px solid yellow; */
     background-color: white;
-    display: table-cell;
+    /* display: table-cell; */
+    float: left;
+    box-sizing: border-box;
+
     vertical-align: top;
     width: 65%;
     padding-left: 1vw;
@@ -63,11 +72,16 @@ a, a:link, a:hover, a:visited, a:focus {
 }
 .main-right {
     /* border: 2px solid orange; */
-    display: table-cell;
+    /* display: table-cell; */
+    float: left;
+    box-sizing: border-box;
     width: 35%;
     padding-left: 2vw;
     padding-right: 2vw;
 }
+/* .clear-float {
+    clear: both;
+} */
 
 
 
