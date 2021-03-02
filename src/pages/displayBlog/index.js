@@ -43,9 +43,10 @@ function Blog(props) {
 
 	const [ title, setTitle ] = useState("Blog Title");
 	const [ tag, setTag ] = useState("前端");
-	const [ imageURL, setImageURL ] = useState("");
+	const [ category, setCategory ] = useState("");
 	const [ content, setContent ] = useState("");
 	const [ createDate, setCreateDate ] = useState("");
+	const [ viewNum, setViewNum ] = useState(0);
 	const [ commentNum, setCommentNum ] = useState(0);
 	const [ starNum, setStarNum ] = useState(0);
 
@@ -58,11 +59,12 @@ function Blog(props) {
 				// console.log( `result = ${ JSON.stringify( resp ) } with type = ${ typeof( resp ) }` );
 				setTitle( resp["title"] );
 				setTag( resp["tag"] );
-				setImageURL( resp["imageURL"] );
+				setCategory( resp["category"] );
 				setContent( resp['content'] );
-				setCreateDate( resp["createDate"] );
+				setViewNum( resp["viewNum"] );
 				setCommentNum( resp["commentNum"] );
 				setStarNum( resp["starNum"] );
+				setCreateDate( resp["createDate"] );
 			} )
 			.catch( err => console.log( `getBlogInfoByHashCode failed with err mesg: ${ err.mesg }` ) );
 	}, [] )

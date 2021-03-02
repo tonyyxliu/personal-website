@@ -11,28 +11,33 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 /* 引入样式表 */
 import './InfoCard.css';
 
+/* 引入默认浏览URL及端口 */
+import { baseURL } from '../../index';
 
 
 
 export default function InfoCard(props) {
-    const imageURL = props.info.imageURL;
+    const title = props.info.title;
     const tag = props.info.tag;
     const tagURL = props.info.tagURL;
-    const title = props.info.title;
+    const category = props.info.category;
+    const imageHashCode = props.info.imageHashCode;
+    const imageName = props.info.imageName;
     const content = props.info.content;
-    const dateString = mysqlDateToString(props.info.date);
-    const commentNumber = props.info.commentNumber;
-    const starNumber = props.info.starNumber;
+    const viewNum = props.info.viewNum;
+    const commentNumber = props.info.commentNum;
+    const starNumber = props.info.starNum;
+    const dateString = mysqlDateToString(props.info.createDate);
     const hashCode = props.info.hashCode;
-
-    const baseURL = "http://localhost:3000";
+    // const baseURL = "http://localhost:3000";
     const linkURL = `${baseURL}/blogs/article/${hashCode}`;
+
 
     const [ contentString, setContentString ] = useState("");
 
     useEffect( () => {
       // 先用contentStringTemp储存所有的text值，然后将它赋值给state hook：contentString
-      console.log(`imageURL = ${ imageURL } with type = ${ Object.prototype.toString.call(imageURL) }`);
+      console.log(`imageHashCode = ${ imageHashCode } with type = ${ Object.prototype.toString.call(imageHashCode) }`);
 
       let contentStringTemp = "";
       // 需要将JSON字符串parse为JSON对象
@@ -51,7 +56,7 @@ export default function InfoCard(props) {
         <div className="infocard-upper">
           <div className="infocard-img-div">
             <a href={linkURL} target="_blank" rel="noreferrer">
-              <img src={ require("../../../../assets/images/author_background.jpg").default } alt="card" className="infocard-img" />
+              <img src={ require(`../../../../assets/blogImages/${imageHashCode}/${imageName}`).default } alt="card" className="infocard-img" />
             </a>
           </div>
           <div className="infocard-content-div">
@@ -124,16 +129,20 @@ export default function InfoCard(props) {
 
 
 /* functions */
-export function CreateInfoCard(title, tag, imageURL, content, date, commentNumber, starNumber, hashCode) {
-    this.title = title;  
-    this.tag = tag;
-    this.imageURL = imageURL;
-    this.tagURL = tagToURL(tag);
-    this.content = content;
-    this.date = date;
-    this.commentNumber = commentNumber;
-    this.starNumber = starNumber;
-    this.hashCode = hashCode;
+export function CreateInfoCard( obj ) {
+    this.id             = obj.id;
+    this.title          = obj.title;  
+    this.tag            = obj.tag;
+    this.tagURL         = tagToURL(obj.tag);      // extra member variable
+    this.category       = obj.category;
+    this.imageHashCode  = obj.imageHashCode;
+    this.imageName      = obj.imageName;
+    this.content        = obj.content;
+    this.viewNum        = obj.viewNum;
+    this.commentNum     = obj.commentNum;
+    this.starNum        = obj.starNum;
+    this.createDate     = obj.createDate;
+    this.hashCode       = obj.hashCode;
   
     function tagToURL(tag) {
       switch(tag) {

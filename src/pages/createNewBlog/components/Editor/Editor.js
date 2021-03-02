@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
+/* 引入组件模块 */
+import FileUploader from '../FileUploader/FileUploader';
 
 /* 引入样式表 */
 import './Editor.css';
@@ -45,7 +47,9 @@ export default function Editor() {
     /* 文章数据 */
     const [ blogTitle, setBlogTitle ] = useState( "" );
     const [ blogTag, setBlogTag ] = useState( "前端" );
-    const [ imageURL, setImageURL ] = useState( "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1365064717,1310351409&fm=26&gp=0.jpg" );
+    const [ blogCategory, setBlogCategory ] = useState("");
+    const [ imageHashCode, setImageHashCode ] = useState();
+    const [ imageName, setImageName ] = useState("");
   
   
     /* 处理事件函数 */
@@ -55,10 +59,6 @@ export default function Editor() {
   
     function handleTagChange( event ) {
       setBlogTag( event.target.value );
-    }
-  
-    function handleImageURLchange( event ) {
-      setImageURL( event.target.value );
     }
   
     function handleChange(editorState) {
@@ -90,13 +90,14 @@ export default function Editor() {
       const blogDataObj = {
         title: blogTitle,
         tag: blogTag,
-        imageURL: imageURL,
-        // content: JSON.stringify(editorState),
+        category: blogCategory,
+        imageHashCode: imageHashCode,
+        imageName: imageName,
         content: editorState.toRAW(),   //transfer to JSON string
       };
       // console.log( `getContent = ${ editorState.getCurrentContent() } with type = ${ Object.prototype.toString.call(editorState.getCurrentContent()) }` );
 
-      // alert( `blog data obj = ${JSON.stringify(blogDataObj)}` );
+      console.log( `blog data obj = ${JSON.stringify(blogDataObj)}` );
   
       /* 将博客数据POST到后端 */
       // const postURL = "http://127.0.0.1:8080/createblog";
@@ -219,22 +220,25 @@ export default function Editor() {
           <Grid container spacing={2}>
             <Grid item xs={2}>
               <Typography style={styles.typography}>
-                配图链接:
+                博客配图:
               </Typography>
             </Grid>
             <Grid item xs={6}>
-              <TextField 
+              <FileUploader 
+                setImageHashCodeFunction={setImageHashCode}
+                setImageNameFunction={setImageName} />
+              {/* <TextField 
                 name="imageURL"
                 label="imageURL"
                 variant="outlined"
                 value={imageURL}
                 style={styles.textfield}
                 onChange={handleImageURLchange}
-              />
+              /> */}
             </Grid>
           </Grid>
         </div>
-  
+
         <Divider />
   
         <div className="form-item">

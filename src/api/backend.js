@@ -5,7 +5,7 @@
 import { CreateInfoCard } from '../pages/index/components/InfoCard/InfoCard';
 
 
-const baseURL = "http://127.0.0.1:8080";
+export const baseURL = "http://127.0.0.1:8080";
 
 
 /* ----------------------------------------
@@ -13,7 +13,7 @@ const baseURL = "http://127.0.0.1:8080";
  * ---------------------------------------- */
 export async function getBlogInfoByHashCode(hashCode) {
     const targetURL = `${baseURL}/getBlogInfoByHashCode/${hashCode}`;
-    console.log( `target url = ${ targetURL }` );
+    // console.log( `target url = ${ targetURL }` );
 
     try {
         let resp = await( fetch(targetURL, {
@@ -21,10 +21,7 @@ export async function getBlogInfoByHashCode(hashCode) {
             mode: "cors",
         }) );
         if (resp.ok) {
-            // console.log( `resp is ok` );
             let json = await( resp.json() );
-            // console.log( `result value = ${ json }` );
-            // console.log( `result json = ${ JSON.stringify(json) }` );
             return json;
         }
         else {
@@ -58,16 +55,30 @@ export async function getAllblogInfo() {
 
             json.forEach(element => {
                 // console.log( `element = ${JSON.stringify(element)}` );
-                let title = element["title"];
-                let tag = element["tag"];
-                let imageURL = element["imageURL"];
-                let content = element["content"];
-                let commentNumber = element["commentNum"];
-                let starNum = element["starNum"];
-                let createDate = element["createDate"];
-                let hashCode = element["hashCode"];
+                let blogObj = {
+                    id:             element["id"],
+                    title:          element["title"],
+                    tag:            element["tag"],
+                    category:       element["category"],
+                    imageHashCode:  element["imageHashCode"],
+                    imageName:      element["imageName"],
+                    content:        element["content"],
+                    viewNum:        element["viewNum"],
+                    commentNum:     element["commentNum"],
+                    starNum:        element["starNum"],
+                    createDate:     element["createDate"],
+                    hashCode:       element["hashCode"],
+                };
+                // let title = element["title"];
+                // let tag = element["tag"];
+                // let imageURL = element["imageURL"];
+                // let content = element["content"];
+                // let commentNumber = element["commentNum"];
+                // let starNum = element["starNum"];
+                // let createDate = element["createDate"];
+                // let hashCode = element["hashCode"];
 
-                outputArray.push( new CreateInfoCard(title, tag, imageURL, content, createDate, commentNumber, starNum, hashCode) );
+                outputArray.push( new CreateInfoCard(blogObj) );
             });
             return outputArray;
         }

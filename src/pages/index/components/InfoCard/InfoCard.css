@@ -21,7 +21,8 @@
 }
 .infocard-img {
     max-width: 85%;
-    max-height: 85%;
+    /* max-height: 85%; */
+    max-height: 20vh;
     display: block;
     margin: auto;
 }
