@@ -1,4 +1,4 @@
-import React, { useState, } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'fontsource-roboto';
 import { Button, Grid } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
@@ -7,6 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import PropTypes from 'prop-types';
 
 import './Categories.css';
+import { getBlogCategories } from '../../../../api/backend';
 
 
 
@@ -14,16 +15,18 @@ import './Categories.css';
 // const frontendCategoryList = ["HTML/CSS", "JavaScript", "React", "Material-UI", "Vue", "其他"];
 // const backendCategoryLisy = ["C/C++", "Java", "Python", "Golang", "Php", "其他"];
 
-export const categoryList = {
-  frontend: ["HTML/CSS", "JavaScript", "React", "Material-UI", "Vue", "其他"],
-  backend: ["C/C++", "Java", "Python", "Golang", "Php", "其他"],
-};
+// export const categoryList = {
+//   frontend: ["HTML/CSS", "JavaScript", "React", "Material-UI", "Vue", "其他"],
+//   backend: ["C/C++", "Java", "Python", "Golang", "Php", "其他"],
+//   others: ["Test", "Internship", "LeetCode"],
+// };
 
 
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-  
+    console.log( `TabPanel: children = ${ children } with type = ${ Object.prototype.toString.call( children ) }` );
+
     const styles = {
       gridItem: {
         textAlign: "center",
@@ -32,9 +35,14 @@ function TabPanel(props) {
         width: "90%",
         marginTop: "3vmin",
         marginBottom: "3vmin",
+        textTransform: "none",
       },
     };
-  
+
+    const handleButtonClick = () => {
+      alert( `暂不支持按细分类搜索博客，该功能会尽快上线` );
+    }
+
     return (
       <div
         role="tabpanel"
@@ -46,13 +54,17 @@ function TabPanel(props) {
         {value === index && (
           <Grid container spacing={0}>
             {children.map(function(item, index) {
+              console.log( `item = ${ item } while index = ${ index }` );
               return (
                 <Grid item xs={12} sm={6} style={styles.gridItem} key={index}>
                   <Button 
                     style={styles.button}
                     variant="outlined"
-                    key={index}>
-                    {item}
+                    key={index}
+                    onClick={handleButtonClick}
+                  >
+                    {item.category}
+                    {`(${item.blogNum})`}
                   </Button>
                 </Grid>
               );
@@ -81,6 +93,36 @@ return {
 export default function Categories(props) {
     // const classes = useStyles();
     const [ AppBarValue, setAppBarValue ] = useState(0);
+    const [ categoryList, setCategoryList ] = useState([]);
+
+    const styles = {
+      tab: {
+        minWidth: `${100 / Object.keys( categoryList ).length }%`,
+      },
+    };
+
+
+    // 从后端获取categorylist信息
+    useEffect( () => {
+      const fetchBlogCategories = async () => {
+        let resp = await( getBlogCategories() );
+        setCategoryList( resp );
+      };
+      fetchBlogCategories();
+    }, [] );
+
+
+    const orderJSON = ( tag ) => {
+      console.log( `tag = ${ tag }` );
+      switch( tag ) {
+        case "前端":
+          return 0;
+        case "后端":
+          return 1;
+        case "其他":
+          return 2;
+      }
+    };
 
 
     const handleChange = (event, newValue) => {
@@ -91,17 +133,27 @@ export default function Categories(props) {
         /* My AppBar and Tabs */
         <div className="category">
         <AppBar position="static">
-            <Tabs value={AppBarValue} onChange={handleChange} aria-label="simple tabs example" >
-            <Tab label="前端" {...a11yProps(0)} />
-            <Tab label="后端" {...a11yProps(1)} />
+            <Tabs 
+              variant="fullWidth"
+              value={AppBarValue} 
+              onChange={handleChange} 
+              aria-label="simple tabs example" >
+              {/* {
+                Object.keys(categoryList).map( (ele, index) => {
+                  return <Tab style={styles.tab} label={ele} index={index} {...a11yProps( orderJSON( ele ) )} />
+                } )
+              } */}
+              <Tab style={styles.tab} label="前端" {...a11yProps(0)} />
+              <Tab style={styles.tab} label="后端" {...a11yProps(1)} />
+              <Tab style={styles.tab} label="其他" {...a11yProps(2)} />
             </Tabs>
         </AppBar>
 
 
-        {Object.keys(props.categoryList).map(function(ele, index) {
+        {Object.keys(categoryList).map(function(ele, index) {
             return (
-            <TabPanel value={AppBarValue} index={index} key={index}>
-                {props.categoryList[ele]}
+            <TabPanel value={AppBarValue} index={ orderJSON( ele ) } key={index}>
+                {categoryList[ele]}
             </TabPanel>
             );
         })}
@@ -121,7 +173,7 @@ export default function Categories(props) {
 
         //   <div className="category-content">
         //     <Grid container spacing={3} >
-        //       {props.categoryList.map(function(item, index) {
+        //       {categoryList.map(function(item, index) {
         //         // alert(`item = ${item} and index = ${index}`);
         //         return (
         //           <Grid item xs={12} sm={6} style={styles.gridItem}>

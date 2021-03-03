@@ -21,7 +21,7 @@ import Footer from './components/Footer/Footer';
 import BreadCrumb from './components/BreadCrumb/BreadCrumb';
 
 /* 引入全局变量 */
-import { categoryList } from './components/Categories/Categories';
+// import { categoryList } from './components/Categories/Categories';
 
 /* 引入cookie函数库 */
 import { getCookie, setCookie, deleteCookie } from '../cookie';
@@ -114,7 +114,7 @@ export function Main(props) {
       </div>
       <div className="main-right">
         <Author />
-        <Categories categoryList={categoryList} />
+        <Categories />
         <BlogEditor />
       </div>
     </div>

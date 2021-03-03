@@ -126,3 +126,33 @@ export async function insertBlogInfoToDatabase( blogDataObj ) {
         throw new Error( `InsertBlogInfoToDatabase: fetch failed with error = ${ error.mesg }` );
       }
 }
+
+
+
+/* -----------------------
+ * !!! 获取所有博客分类 !!!
+ * ----------------------- */
+export async function getBlogCategories() {
+    const targetURL = `${baseURL}/getBlogCategories`;
+
+    try {
+        let resp = await( fetch(targetURL, {
+            method: "GET",
+            mode: "cors",
+        }) );
+    
+        if ( resp.ok ) {
+            let json = await( resp.json() );
+            console.log( `getBlogCategories: json = ${ JSON.stringify(json) }` );
+            return json;
+        }
+        else {
+            console.log( `getBlogCategories: resp not ok with status ${ resp.status } and statusText ${ resp.statusText }` );
+            return Promise.reject( new Error( `getBlogCategories: resp not ok with status ${ resp.status } and statusText ${ resp.statusText }` ) );
+        }
+    }
+    catch( error ) {
+        console.log( `getBlogCategories: fetch failed with error = ${ error } with mesg = ${ error.mesg }` );
+        return Promise.reject( new Error( `getBlogCategories: fetch failed with error = ${ error } with mesg = ${ error.mesg }` ) );
+    }
+}

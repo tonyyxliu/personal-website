@@ -54,6 +54,7 @@ function Blog(props) {
 	// 根据props.hashCode调用后端接口获取博客信息结构体
 	useEffect( () => {
 		console.log( `enter use effect` );
+		console.log(`hashCode = ${ props.hashCode } with type = ${ Object.prototype.toString.call(props.hashCode) }`);
 		getBlogInfoByHashCode(props.hashCode)
 			.then( resp => {
 				// console.log( `result = ${ JSON.stringify( resp ) } with type = ${ typeof( resp ) }` );
@@ -72,7 +73,7 @@ function Blog(props) {
 
   return (
 		<div>
-			<Breadcrumb />
+			<Breadcrumb tag={tag} category={category} />
 
 			<div className="blog-main">
 				<BlogHeader 
@@ -82,6 +83,7 @@ function Blog(props) {
 					// starNum={blogData["starNum"]}
 					title={title}  
 					createDate={createDate}
+					viewNum={viewNum}
 					commentNum={commentNum}
 					starNum={starNum}
 				/>
@@ -105,13 +107,33 @@ function BlogHeader(props) {
 				</Typography>
 			</div>
 			<div className="blog-header-info">
-				<Typography>
-					{mysqlDateToString( props.createDate )}	
-					{"\t|\t"}
-					{props.commentNum}	{"条评论"}
-					{"  |  "}
-					{props.starNum}			{"个点赞"}
-				</Typography>
+				<div className="blog-header-data" style={{paddingLeft: "0",}}>
+					<Typography>
+						{/* {"最后修改于"} */}
+						{mysqlDateToString( props.createDate )}
+					</Typography>
+				</div>
+				·
+				<div className="blog-header-data">
+					<Typography>
+						{ props.viewNum }
+						{"次阅读"}
+					</Typography>
+				</div>
+				·
+				<div className="blog-header-data">
+					<Typography>
+						{ props.commentNum }
+						{"条评论"}
+					</Typography>
+				</div>
+				·
+				<div className="blog-header-data">
+					<Typography>
+						{ props.starNum }
+						{"个点赞"}
+					</Typography>
+				</div>
 			</div>
 		</div>
 	);

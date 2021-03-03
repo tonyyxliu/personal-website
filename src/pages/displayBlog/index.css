@@ -101,8 +101,11 @@ a, a:link, a:hover, a:visited, a:focus {
     /* border: 2px solid orange; */
     padding-top: 1vh;
     padding-bottom: 1vh;
+    
 }
-
-/* .blog-content {
-    /* border: 2px solid green; 
-} */
+.blog-header-data {
+    /* border: 2px solid red; */
+    display: inline-block;
+    padding-left: 1vmin;
+    padding-right: 1vmin;
+}

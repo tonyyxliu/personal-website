@@ -30,6 +30,7 @@ function handleClick(event) {
 }
 
 export default function IconBreadcrumbs(props) {
+	// props 包含tag和category两个属性，用来动态面包屑导航
   const classes = useStyles();
 
   return (
@@ -40,7 +41,44 @@ export default function IconBreadcrumbs(props) {
 						<HomeIcon className={classes.icon} />
 						首页
 				</Link>
-				<Link
+
+				{
+					props.tag != undefined && 
+					<Link
+						color="inherit"
+						href="/"
+						onClick={ () => alert("暂不支持此功能，我会尽快上线") }
+						className={classes.link}
+					>
+						<WhatshotIcon className={classes.icon} />
+						{ props.tag }
+					</Link>
+				}
+
+				{
+					props.category != undefined && 
+					<Link
+						color="inherit"
+						href="/"
+						onClick={ () => alert("暂不支持此功能，我会尽快上线") }
+						className={classes.link}
+					>
+						<GrainIcon className={classes.icon} />
+						{ props.category }
+					</Link>
+				}
+
+				{
+					props.tag != undefined && props.category != undefined && 
+					<Typography color="textPrimary" className={classes.link}>
+						<GrainIcon className={classes.icon} />
+						博客文章
+					</Typography>
+				}
+
+
+
+				{/* <Link
 						color="inherit"
 						href="/getting-started/installation/"
 						onClick={handleClick}
@@ -52,7 +90,7 @@ export default function IconBreadcrumbs(props) {
 				<Typography color="textPrimary" className={classes.link}>
 						<GrainIcon className={classes.icon} />
 						博客文章
-				</Typography>
+				</Typography> */}
 				</Breadcrumbs>
 			</div>
 			<div>

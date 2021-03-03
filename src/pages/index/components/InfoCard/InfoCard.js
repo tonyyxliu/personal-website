@@ -4,6 +4,7 @@ import { Tooltip, Typography, Divider, Paper, Button } from '@material-ui/core';
 import Chip from '@material-ui/core/Chip';
 import Link from '@material-ui/core/Link';
 import DateRangeIcon from '@material-ui/icons/DateRange';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import ChatOutlinedIcon from '@material-ui/icons/ChatOutlined';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -95,6 +96,12 @@ export default function InfoCard(props) {
                   {dateString}
                 </Typography>
               </Tooltip>
+            </div>
+            <div className="infocard-action-div">
+              <Typography className="infocard-action-content">
+                <VisibilityIcon />
+                {viewNum}次阅读
+              </Typography>
             </div>
             <div className="infocard-action-div">
               <Typography className="infocard-action-content">

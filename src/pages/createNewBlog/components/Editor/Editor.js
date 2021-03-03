@@ -130,6 +130,9 @@ export default function Editor() {
       let status = await( insertBlogInfoToDatabase( blogDataObj ) );
       if (status === true) {
         alert( `文章已发布，请前往主页查看` );
+
+        // redirect back to the index page
+        window.location.href = "/";
       }
     }
   

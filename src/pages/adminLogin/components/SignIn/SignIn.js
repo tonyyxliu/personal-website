@@ -84,7 +84,7 @@ export default function SignIn() {
     // alert( `document.cookie before = ${ document.cookie }` );
 
     if ( loginStatus === true ) {
-      setCookie( "admin", true, { 'max-age': 100 } );
+      setCookie( "admin", true, { 'max-age': 3600 } );
       // alert( `document.cookie after = ${ document.cookie }` );
 
       /* 跳转回主界面，在主界面中检验cookie admin的值从而添加管理员编辑入口 */
