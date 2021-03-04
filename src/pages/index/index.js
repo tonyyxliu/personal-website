@@ -76,11 +76,11 @@ function MainLeft(props) {
 }
 
 
-export default function Index() {
+export default function Index(props) {
   return (
       <div className="mainbody">
         <Header />
-        <Main leftComponent={<MainLeft />} />
+        <Main leftComponent={ props.mainLeftComponent || <MainLeft /> } />
         <Footer />
       </div>
   );

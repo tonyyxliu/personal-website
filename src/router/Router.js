@@ -10,6 +10,15 @@ import Config from './Config';
 import Header from '../pages/index/components/Header/Header';
 
 
+function Page404() {
+	return (
+		<div>
+			404, Page Not Found
+		</div>
+	);
+}
+
+
 export default function MyRouter() {
 	return (
 		<BrowserRouter>
@@ -20,12 +29,7 @@ export default function MyRouter() {
 							return ( <Route exact={item.exact} path={item.path} key={index} component={item.component} /> );
 						} )
 					}
-				{/* {
-						Config.map( (item, index) => {
-							return <Route exact={item.exact} path={item.path} key={index} component={item.component} />
-						} )
-					} */}
-					<Route component={Header} />
+					<Route component={Page404} />
 				</Switch>
 			</Suspense>
 		</BrowserRouter>

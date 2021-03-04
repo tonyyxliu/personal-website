@@ -9,23 +9,14 @@ import PropTypes from 'prop-types';
 import './Categories.css';
 import { getBlogCategories } from '../../../../api/backend';
 
+import { baseURL } from '../../index';
 
-
-/* Global Variables */
-// const frontendCategoryList = ["HTML/CSS", "JavaScript", "React", "Material-UI", "Vue", "其他"];
-// const backendCategoryLisy = ["C/C++", "Java", "Python", "Golang", "Php", "其他"];
-
-// export const categoryList = {
-//   frontend: ["HTML/CSS", "JavaScript", "React", "Material-UI", "Vue", "其他"],
-//   backend: ["C/C++", "Java", "Python", "Golang", "Php", "其他"],
-//   others: ["Test", "Internship", "LeetCode"],
-// };
 
 
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-    console.log( `TabPanel: children = ${ children } with type = ${ Object.prototype.toString.call( children ) }` );
+    // console.log( `TabPanel: children = ${ children } with type = ${ Object.prototype.toString.call( children ) }` );
 
     const styles = {
       gridItem: {
@@ -39,10 +30,6 @@ function TabPanel(props) {
       },
     };
 
-    const handleButtonClick = () => {
-      alert( `暂不支持按细分类搜索博客，该功能会尽快上线` );
-    }
-
     return (
       <div
         role="tabpanel"
@@ -54,17 +41,16 @@ function TabPanel(props) {
         {value === index && (
           <Grid container spacing={0}>
             {children.map(function(item, index) {
-              console.log( `item = ${ item } while index = ${ index }` );
+              // console.log( `item = ${ item } while index = ${ index }` );
               return (
                 <Grid item xs={12} sm={6} style={styles.gridItem} key={index}>
                   <Button 
                     style={styles.button}
                     variant="outlined"
                     key={index}
-                    onClick={handleButtonClick}
+                    onClick={ () => { window.location.href=`${baseURL}/blogs/classify?criterion=category&key=${ item.category }`; } }
                   >
-                    {item.category}
-                    {`(${item.blogNum})`}
+                    {`${item.category}(${item.blogNum})`}
                   </Button>
                 </Grid>
               );
@@ -76,7 +62,7 @@ function TabPanel(props) {
 }
   
 TabPanel.propTypes = {
-children: PropTypes.node,
+// children: PropTypes.node,
 index: PropTypes.any.isRequired,
 value: PropTypes.any.isRequired,
 };
@@ -113,7 +99,7 @@ export default function Categories(props) {
 
 
     const orderJSON = ( tag ) => {
-      console.log( `tag = ${ tag }` );
+      // console.log( `tag = ${ tag }` );
       switch( tag ) {
         case "前端":
           return 0;
@@ -152,8 +138,8 @@ export default function Categories(props) {
 
         {Object.keys(categoryList).map(function(ele, index) {
             return (
-            <TabPanel value={AppBarValue} index={ orderJSON( ele ) } key={index}>
-                {categoryList[ele]}
+            <TabPanel value={AppBarValue} index={ orderJSON( ele ) } key={ orderJSON( ele ) }>
+              {categoryList[ele]}
             </TabPanel>
             );
         })}

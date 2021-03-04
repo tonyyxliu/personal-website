@@ -34,7 +34,12 @@ let Config = [   {
 	path: "/blogs/article/:hashcode",
 	exact: true,
 	component: lazy( () => import("../pages/displayBlog/index") ),
-}
+}, {
+  name: "检索博客",
+  path: "/blogs/classify",
+  exact: true,
+  component: lazy( () => import("../pages/classifyBlog/index") ),
+},
 ];
 
 export default Config;

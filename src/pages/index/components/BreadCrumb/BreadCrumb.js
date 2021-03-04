@@ -7,6 +7,7 @@ import Link from '@material-ui/core/Link';
 import HomeIcon from '@material-ui/icons/Home';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import GrainIcon from '@material-ui/icons/Grain';
+import DescriptionIcon from '@material-ui/icons/Description';
 
 
 /* 引入样式表 */
@@ -24,22 +25,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function handleClick(event) {
-  event.preventDefault();
-  console.info('You clicked a breadcrumb.');
-}
 
 export default function IconBreadcrumbs(props) {
 	// props 包含tag和category两个属性，用来动态面包屑导航
   const classes = useStyles();
 
+	console.log( `category = ${ props.category } with type = ${ Object.prototype.toString.call( props.category ) }` );
+
   return (
     <div>
 			<div className="nowhere">
 				<Breadcrumbs aria-label="breadcrumb">
-				<Link color="inherit" href="/" onClick={handleClick} className={classes.link}>
-						<HomeIcon className={classes.icon} />
-						首页
+				<Link 
+					color="inherit" 
+					href="/" 
+					className={classes.link}
+				>
+					<HomeIcon className={classes.icon} />
+					首页
 				</Link>
 
 				{
@@ -47,7 +50,10 @@ export default function IconBreadcrumbs(props) {
 					<Link
 						color="inherit"
 						href="/"
-						onClick={ () => alert("暂不支持此功能，我会尽快上线") }
+						onClick={ ( event ) => {
+							event.preventDefault();
+							alert("暂不支持此功能，我会尽快上线");
+						} }
 						className={classes.link}
 					>
 						<WhatshotIcon className={classes.icon} />
@@ -60,37 +66,24 @@ export default function IconBreadcrumbs(props) {
 					<Link
 						color="inherit"
 						href="/"
-						onClick={ () => alert("暂不支持此功能，我会尽快上线") }
+						onClick={ ( event ) => {
+							event.preventDefault();
+							alert("暂不支持此功能，我会尽快上线");
+						} }
 						className={classes.link}
 					>
 						<GrainIcon className={classes.icon} />
-						{ props.category }
+						{ decodeURIComponent(props.category) || "未知类型" }
 					</Link>
 				}
 
 				{
-					props.tag != undefined && props.category != undefined && 
+					props.tag != undefined && props.category != undefined && props.article != undefined && props.article === true &&
 					<Typography color="textPrimary" className={classes.link}>
-						<GrainIcon className={classes.icon} />
+						<DescriptionIcon className={classes.icon} />
 						博客文章
 					</Typography>
 				}
-
-
-
-				{/* <Link
-						color="inherit"
-						href="/getting-started/installation/"
-						onClick={handleClick}
-						className={classes.link}
-				>
-						<WhatshotIcon className={classes.icon} />
-						前端
-				</Link>
-				<Typography color="textPrimary" className={classes.link}>
-						<GrainIcon className={classes.icon} />
-						博客文章
-				</Typography> */}
 				</Breadcrumbs>
 			</div>
 			<div>

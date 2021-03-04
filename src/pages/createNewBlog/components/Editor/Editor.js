@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Grid, Select, MenuItem, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -18,7 +18,7 @@ import './Editor.css';
 import BraftEditor from 'braft-editor';
 import 'braft-editor/dist/index.css';
 import 'braft-editor/dist/output.css';
-import { insertBlogInfoToDatabase } from '../../../../api/backend';
+import { getBlogCategories, insertBlogInfoToDatabase } from '../../../../api/backend';
 
 
 
@@ -45,26 +45,53 @@ export default function Editor() {
   
   
     /* 文章数据 */
+    const [ categoryList, setCategoryList ] = useState(  );
+
     const [ blogTitle, setBlogTitle ] = useState( "" );
     const [ blogTag, setBlogTag ] = useState( "前端" );
     const [ blogCategory, setBlogCategory ] = useState("");
+    const [ blogCategoryList, setBlogCategoryList ] = useState([]);
     const [ imageHashCode, setImageHashCode ] = useState();
     const [ imageName, setImageName ] = useState("");
+
+    
+
+    // fetch blog category list
+    useEffect( () => {
+      const fetchBlogCategories = async () => {
+        let resp = await( getBlogCategories() );
+        setCategoryList( resp );
+
+        console.log( `resp = ${ JSON.stringify( resp ) } and categoryList = ${ JSON.stringify( categoryList ) }` );
+
+        let list = resp[ blogTag ];
+        console.log( `list = ${ list } with type = ${ Object.prototype.toString.call( list ) }` );
+        setBlogCategoryList( list );
+        if ( list.length > 0 ) {
+          setBlogCategory( list[0].category );
+        }
+        else {
+          console.log( `Error in categoryList: length is 0` );
+        }
+      };
+      fetchBlogCategories();
+    }, [blogTag] );
+
   
   
     /* 处理事件函数 */
     function handleTitleChange(event) {
       setBlogTitle( event.target.value );
     }
-  
     function handleTagChange( event ) {
       setBlogTag( event.target.value );
     }
-  
     function handleChange(editorState) {
       setEditorState( editorState );
     }
-  
+    function handleCategoryChange( event ) {
+      setBlogCategory( event.target.value );
+    }
   
     // function handleSaveEditor() {
     //   // const editorData = Editor.createEditorState( editorState );
@@ -99,34 +126,7 @@ export default function Editor() {
 
       console.log( `blog data obj = ${JSON.stringify(blogDataObj)}` );
   
-      /* 将博客数据POST到后端 */
-      // const postURL = "http://127.0.0.1:8080/createblog";
-      // try {
-      //   let resp = await( fetch( postURL, {
-      //     method: "POST",
-      //     mode: "cors",
-      //     headers: {
-      //       "Content-type":"application/json",
-      //     },
-      //     body: JSON.stringify( blogDataObj ),
-      //   } ) );
-  
-      //   if ( resp.ok ) {
-      //     // 测试POST是否成功
-      //     // alert( `resp.status = ${ resp.status } and status text = ${ resp.statusText }` );
-      //     let json = await( resp.json() );
-      //     // alert( `POST成功` );
-      //     // alert( `json = ${ JSON.stringify(json) }` );
-      //     // alert( `editorState.toHTML() = ${ outputHTML } and type = ${ typeof( outputHTML ) }` );
-      //   }
-      //   else {
-      //     alert( `fetch failed with status code = ${ resp.status } and status text = ${ resp.statusText }` );
-      //   }
-      // }
-      // catch( error ) {
-      //   console.log( `fetch failed with error = ${ error.mesg }`);
-      // }
-  
+      /* 将博客数据POST到后端 */  
       let status = await( insertBlogInfoToDatabase( blogDataObj ) );
       if (status === true) {
         alert( `文章已发布，请前往主页查看` );
@@ -153,24 +153,7 @@ export default function Editor() {
     return (
       // 文章标题
       <div className="editor">
-          <Header handleSubmitFunction={handleFormSubmit} />
-        {/* <AppBar position="static">
-          <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              新建您的博客文章
-            </Typography>
-            <Button 
-              color="inherit"
-              onClick={handleFormSubmit}
-            >
-              发布文章
-            </Button>
-          </Toolbar>
-        </AppBar> */}
-  
+        <Header handleSubmitFunction={handleFormSubmit} />
   
         <form>
         <div className="form-item">
@@ -199,7 +182,7 @@ export default function Editor() {
           <Grid container spacing={2}>
             <Grid item xs={2}>
               <Typography style={styles.typography}>
-                文章类型:
+                文章标签:
               </Typography>
             </Grid>
             <Grid item xs={6}>
@@ -217,6 +200,35 @@ export default function Editor() {
           </Grid>
         </div>
   
+        <Divider />
+
+        <div className="category form-item">
+          <Grid container spacing={2}>
+            <Grid item xs={2}>
+              <Typography style={styles.typography}>
+                具体类型：
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={blogCategory}
+                onChange={handleCategoryChange}
+              >
+                {
+                  blogCategoryList.map( (item, index) => {
+                    return <MenuItem value={item.category} key={index}>{item.category}</MenuItem>
+                  } )
+                }
+                {/* <MenuItem value={blogCategory}>{blogCategory}</MenuItem>
+                <MenuItem value={"后端"}>后端</MenuItem>
+                <MenuItem value={"其他"}>其他</MenuItem> */}
+              </Select>
+            </Grid>
+          </Grid>
+        </div>
+
         <Divider />
   
         <div className="img-url form-item">
@@ -282,13 +294,6 @@ export default function Editor() {
 function Header(props) {
     const classes = useStyles();
     const handleFormSubmit = props.handleSubmitFunction;
-
-    function handleClick() {
-      alert( `文章已发布，请前往主页查看` );
-  
-      /* 收集所有博客数据并发往后端 */
-  
-    }
   
     return (
       <AppBar position="static">

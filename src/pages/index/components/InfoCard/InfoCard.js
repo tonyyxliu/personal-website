@@ -52,12 +52,21 @@ export default function InfoCard(props) {
     }, [] );
 
 
+    function requireImage() {
+      if ( imageHashCode === 0 ) {
+        return require(`../../../../assets/blogImages/default/default_2.png`).default;
+      }
+      else {
+        return require(`../../../../assets/blogImages/${imageHashCode}/${imageName}`).default;
+      }
+    }
+
     return (
       <Paper elevation={3} className="infocard">
         <div className="infocard-upper">
           <div className="infocard-img-div">
             <a href={linkURL} target="_blank" rel="noreferrer">
-              <img src={ require(`../../../../assets/blogImages/${imageHashCode}/${imageName}`).default } alt="card" className="infocard-img" />
+              <img src={ requireImage() } alt="card" className="infocard-img" />
             </a>
           </div>
           <div className="infocard-content-div">

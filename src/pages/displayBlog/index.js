@@ -2,18 +2,12 @@ import react, { useState, useEffect } from 'react';
 
 import { Container, Typography, Divider } from '@material-ui/core';
 
-/* 引入indexPage中的通用模块 */
-import Header from '../index/components/Header/Header';
-import { Main } from '../index/index';
-// import Author from '../index/components/Author/Author';
-// import Categories from '../index/components/Categories/Categories';
-import Footer from '../index/components/Footer/Footer';
-
 /* 引入样式表 */
 import './index.css';
 
 /* 引入组件模块 */
 import Breadcrumb from '../index/components/BreadCrumb/BreadCrumb';
+import Index from '../index/index';
 
 /* 引入富文本编辑器 */
 import BraftEditor from 'braft-editor';
@@ -73,7 +67,7 @@ function Blog(props) {
 
   return (
 		<div>
-			<Breadcrumb tag={tag} category={category} />
+			<Breadcrumb tag={tag} category={category} article={true} />
 
 			<div className="blog-main">
 				<BlogHeader 
@@ -141,11 +135,6 @@ function BlogHeader(props) {
 
 
 function BlogContent(props) {
-	// console.log( `props.content = ${ props.content } with type = ${ typeof( props.content ) }` );
-	// const [ editorState, setEditorState ] = useState( BraftEditor.createEditorState( props.content ) );
-
-
-
 	return (
 		<div className="blog-content">
 			{/* <BraftEditor 
@@ -177,11 +166,7 @@ export default function DisplayBlog() {
 	} );
 
 	return (
-			<div className="mainbody">
-				<Header />
-				<Main leftComponent={<Blog hashCode={hashCode} />} />
-				<Footer />
-			</div>
+		<Index mainLeftComponent={<Blog hashCode={hashCode} />} />
 	);
 }
 

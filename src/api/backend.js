@@ -143,7 +143,7 @@ export async function getBlogCategories() {
     
         if ( resp.ok ) {
             let json = await( resp.json() );
-            console.log( `getBlogCategories: json = ${ JSON.stringify(json) }` );
+            // console.log( `getBlogCategories: json = ${ JSON.stringify(json) }` );
             return json;
         }
         else {
@@ -154,5 +154,38 @@ export async function getBlogCategories() {
     catch( error ) {
         console.log( `getBlogCategories: fetch failed with error = ${ error } with mesg = ${ error.mesg }` );
         return Promise.reject( new Error( `getBlogCategories: fetch failed with error = ${ error } with mesg = ${ error.mesg }` ) );
+    }
+}
+
+
+
+/* --------------------
+ * !!! 博客分类检索 !!!
+ * -------------------- 
+ * criterion:   按何种方式检索，如按category或date
+ * key:         该检索方式的key值，如category的React
+ */ 
+export async function classifyBlogs( criterion, key ) {
+    const targetURL = `${baseURL}/blogs/classify?criterion=${criterion}&key=${key}`;
+    console.log( `target URL = ${ targetURL }` );
+
+    try {
+        let resp = await( fetch( targetURL, {
+            method: "GET",
+            mode: "cors",
+        } ) );
+        if ( resp.ok ) {
+            let json = await( resp.json() );
+            console.log( `classifyBlogs: return json = ${ JSON.stringify( json ) }` );
+            return json;
+        }
+        else {
+            console.log( `classifyBlogs: Error occurs with status ${ resp.status } and status text = ${ resp.statusText }` );
+            return Promise.reject( new Error( `classifyBlogs: Error occurs with status ${ resp.status } and status text = ${ resp.statusText }` ) );
+        }
+    }
+    catch( error ) {
+        console.log( `classifyBlogs: Error occurs ${ error } with mesg = ${ error.mesg }` );
+        return Promise.reject( new Error( `classifyBlogs: Error occurs ${ error } with mesg = ${ error.mesg }` ) );
     }
 }
