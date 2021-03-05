@@ -7,7 +7,6 @@
 import react, { Suspense } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Config from './Config';
-import Header from '../pages/index/components/Header/Header';
 
 
 function Page404() {

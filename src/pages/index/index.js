@@ -34,7 +34,7 @@ import { createNewBlogPath } from '../../router/Config';
 import { getAllblogInfo } from "../../api/backend";
 
 
-export const baseURL = "http://localhost:3000";
+export const baseURL = "http://www.tonyliuyuxuan.cn:3000";
 
 
 function MainLeft(props) {

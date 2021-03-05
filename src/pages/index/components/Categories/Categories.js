@@ -48,7 +48,7 @@ function TabPanel(props) {
                     style={styles.button}
                     variant="outlined"
                     key={index}
-                    onClick={ () => { window.location.href=`${baseURL}/blogs/classify?criterion=category&key=${ item.category }`; } }
+                    onClick={ () => { window.location.href=`/blogs/classify?criterion=category&key=${ item.category }`; } }
                   >
                     {`${item.category}(${item.blogNum})`}
                   </Button>

@@ -22,18 +22,6 @@ import { getBlogInfoByHashCode } from '../../api/backend';
 
 // 此处，props中需要有blogData参数，包含title，tag等所有信息
 function Blog(props) {
-	// const [ blogData, setBlogData ] = useState( () => {
-	// 	getBlogInfoByHashCode(props.hashCode)
-	// 		.then( resp => {
-	// 			console.log( `result = ${ JSON.stringify( resp ) } with type = ${ Object.prototype.toString.call(resp) }` );
-	// 			console.log( `JSON.parse(resp) = ${ JSON.parse(resp) } with type = ${ Object.prototype.toString.call( JSON.parse(resp) ) }` );
-	// 			// setBlogData( resp );
-	// 			return JSON.parse( resp );
-	// 		} )
-	// 		.catch( err => console.log( `getBlogInfoByHashCode failed with err mesg: ${ err.mesg }` ) );
-	// } );
-
-	// console.log( `test: blogData = ${ blogData } with type = ${ typeof( blogData ) }` );
 
 	const [ title, setTitle ] = useState("Blog Title");
 	const [ tag, setTag ] = useState("前端");
@@ -47,21 +35,35 @@ function Blog(props) {
 
 	// 根据props.hashCode调用后端接口获取博客信息结构体
 	useEffect( () => {
-		console.log( `enter use effect` );
-		console.log(`hashCode = ${ props.hashCode } with type = ${ Object.prototype.toString.call(props.hashCode) }`);
-		getBlogInfoByHashCode(props.hashCode)
-			.then( resp => {
-				// console.log( `result = ${ JSON.stringify( resp ) } with type = ${ typeof( resp ) }` );
-				setTitle( resp["title"] );
-				setTag( resp["tag"] );
-				setCategory( resp["category"] );
-				setContent( resp['content'] );
-				setViewNum( resp["viewNum"] );
-				setCommentNum( resp["commentNum"] );
-				setStarNum( resp["starNum"] );
-				setCreateDate( resp["createDate"] );
-			} )
-			.catch( err => console.log( `getBlogInfoByHashCode failed with err mesg: ${ err.mesg }` ) );
+		const setValue = async () => {
+			console.log(`hashCode = ${ props.hashCode } with type = ${ Object.prototype.toString.call(props.hashCode) }`);
+			let resp = await( getBlogInfoByHashCode(props.hashCode) );
+			setTitle( resp["title"] );
+			setTag( resp["tag"] );
+			setCategory( resp["category"] );
+			setContent( resp['content'] );
+			setViewNum( resp["viewNum"] );
+			setCommentNum( resp["commentNum"] );
+			setStarNum( resp["starNum"] );
+			setCreateDate( resp["createDate"] );
+		};
+		setValue();
+
+		// console.log( `enter use effect` );
+		// console.log(`hashCode = ${ props.hashCode } with type = ${ Object.prototype.toString.call(props.hashCode) }`);
+		// getBlogInfoByHashCode(props.hashCode)
+		// 	.then( resp => {
+		// 		// console.log( `result = ${ JSON.stringify( resp ) } with type = ${ typeof( resp ) }` );
+		// 		setTitle( resp["title"] );
+		// 		setTag( resp["tag"] );
+		// 		setCategory( resp["category"] );
+		// 		setContent( resp['content'] );
+		// 		setViewNum( resp["viewNum"] );
+		// 		setCommentNum( resp["commentNum"] );
+		// 		setStarNum( resp["starNum"] );
+		// 		setCreateDate( resp["createDate"] );
+		// 	} )
+		// 	.catch( err => console.log( `getBlogInfoByHashCode failed with err mesg: ${ err.mesg }` ) );
 	}, [] )
 
 

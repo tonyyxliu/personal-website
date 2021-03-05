@@ -31,7 +31,7 @@ export default function InfoCard(props) {
     const dateString = mysqlDateToString(props.info.createDate);
     const hashCode = props.info.hashCode;
     // const baseURL = "http://localhost:3000";
-    const linkURL = `${baseURL}/blogs/article/${hashCode}`;
+    const linkURL = `/blogs/article/${hashCode}`;
 
 
     const [ contentString, setContentString ] = useState("");

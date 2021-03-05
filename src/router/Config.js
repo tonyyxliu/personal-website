@@ -13,7 +13,6 @@ export const adminLoginPath = "/adminLogin";
 export const createNewBlogPath = "/createNewBlog";
 
 
-
 let Config = [   {
   name: '网站主页面',
   path: '/',
