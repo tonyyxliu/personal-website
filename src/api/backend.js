@@ -189,3 +189,46 @@ export async function classifyBlogs( criterion, key ) {
         return Promise.reject( new Error( `classifyBlogs: Error occurs ${ error } with mesg = ${ error.mesg }` ) );
     }
 }
+
+
+
+
+/* -------------------------
+ * !!! check admin login !!!
+ * ------------------------- */
+export async function checkAdminLogin( POSTobj, setLoginStatus, setDialogOpen ) {
+    const targetURL = `${baseURL}/form`;
+    try {
+      let resp = await( fetch( targetURL , {
+        method: "POST",
+        mode: "cors",
+        headers:{
+          "Content-type":"application/json",
+        },
+        body: JSON.stringify( POSTobj ),
+      }) );
+  
+      if (resp.ok) {
+        let json = await( resp.json() );
+        // alert( `resp.json = ${json} and JSON.stringify(json) = ${JSON.stringify(json)}` );
+
+        // 登陆成功
+        if ( json["pass"] === true ) {
+          // alert("correct");
+
+          /* 调出显示“登陆成功”的Dialog小窗口 */
+          setLoginStatus( true );
+          setDialogOpen( true );
+        }
+        // 登陆失败
+        else {
+          setLoginStatus( false )
+          setDialogOpen( true );
+          // alert("unidentified user");
+        }
+      }
+    }
+    catch(error) {
+      alert( `fetch failed with err mesg = ${error}` );
+    }
+}

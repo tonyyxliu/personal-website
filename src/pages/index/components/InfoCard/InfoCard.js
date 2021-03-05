@@ -72,7 +72,11 @@ export default function InfoCard(props) {
           <div className="infocard-content-div">
             <div className="infocard-content-title-div">
               <div className="infocard-content-title">
-                <Chip label={tag} component="a" href={tagURL} target="_blank" color="primary" rel="noopener" clickable />
+                <Chip label={tag} component="a" href={ "/" } target="_blank" color="primary" rel="noopener" clickable 
+                  onClick={ ( event ) => {
+                    event.preventDefault();
+                    alert("抱歉，暂不支持此功能，我会尽快上线");
+                  } } />
               </div>
               <div className="infocard-content-title">
                 <Typography>

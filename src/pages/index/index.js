@@ -19,6 +19,7 @@ import Author from './components/Author/Author';
 import Categories from './components/Categories/Categories';
 import Footer from './components/Footer/Footer';
 import BreadCrumb from './components/BreadCrumb/BreadCrumb';
+import ProjectList from './components/MyProject/MyProject';
 
 /* 引入全局变量 */
 // import { categoryList } from './components/Categories/Categories';
@@ -114,6 +115,7 @@ export function Main(props) {
       </div>
       <div className="main-right">
         <Author />
+        <ProjectList />
         <Categories />
         <BlogEditor />
       </div>

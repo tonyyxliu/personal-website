@@ -43,10 +43,34 @@ function BlogList(props) {
         };
         getBlogList();
     }, [] );
+    
+    function categoryToTag( category ) {
+        switch( category ) {
+            case "HTML/CSS":
+            case "JavaScript":
+            case "React":
+            case "Vue":
+            case "Material-UI":
+                return "前端";
+            case "C/C++":
+            case "Java":
+            case "Python":
+            case "Golang":
+            case "PHP":
+                return "后端";
+            case "计算机网络":
+            case "操作系统":
+            case "数据库":
+            case "软件工程":
+            case "其他":
+                return "其他";
+        }
+        return "其他";
+    }
 
     return (
         <div>
-            <BreadCrumb tag={ "前端" } category={ key } article={false} />
+            <BreadCrumb tag={ categoryToTag( key ) } category={ key } article={false} />
             {
                 blogList.map( (item, index) => {
                     return <InfoCard info={item} key={index} />

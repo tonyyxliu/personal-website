@@ -15,6 +15,7 @@ import Container from '@material-ui/core/Container';
 import { Dialog, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 
 import { getCookie, setCookie, deleteCookie } from '../../../cookie';
+import { checkAdminLogin } from '../../../../api/backend';
 
 
 function Copyright() {
@@ -108,42 +109,7 @@ export default function SignIn() {
     // alert( `POSTobj = ${JSON.stringify( POSTobj )}` );
 
     // fetch
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const targetURL = "http://127.0.0.1:8080/form";
-    try {
-      let resp = await( fetch( targetURL , {
-        method: "POST",
-        mode: "cors",
-        headers:{
-          "Content-type":"application/json",
-        },
-        body: JSON.stringify( POSTobj ),
-      }) );
-  
-      if (resp.ok) {
-        let json = await( resp.json() );
-        // alert( `resp.json = ${json} and JSON.stringify(json) = ${JSON.stringify(json)}` );
-
-        // 登陆成功
-        if ( json["pass"] === true ) {
-          // alert("correct");
-
-          /* 调出显示“登陆成功”的Dialog小窗口 */
-          setLoginStatus( true );
-          setDialogOpen( true );
-        }
-        // 登陆失败
-        else {
-          setLoginStatus( false )
-          setDialogOpen( true );
-          // alert("unidentified user");
-        }
-      }
-    }
-    catch(error) {
-      alert( `fetch failed with err mesg = ${error}` );
-    }
-
+    let resp = await( checkAdminLogin( POSTobj, setLoginStatus, setDialogOpen ) );
   } 
 
   return (
