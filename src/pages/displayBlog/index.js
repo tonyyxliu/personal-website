@@ -144,7 +144,7 @@ function BlogContent(props) {
 				readOnly={true}
 			/> */}
 
-			<div className="braft-output-content" dangerouslySetInnerHTML={{__html: BraftEditor.createEditorState( props.content ).toHTML()}}></div>
+			<div className="braft-output-content display" dangerouslySetInnerHTML={{__html: BraftEditor.createEditorState( props.content ).toHTML()}}></div>
 		</div>
 	);
 }

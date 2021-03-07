@@ -57,7 +57,8 @@ export default function InfoCard(props) {
         return require(`../../../../assets/blogImages/default/default_2.png`).default;
       }
       else {
-        return require(`../../../../assets/blogImages/${imageHashCode}/${imageName}`).default;
+        // return require(`../../../../assets/blogImages/${imageHashCode}/${imageName}`).default;
+        return `http://www.tonyliuyuxuan.cn/personal-website/blogImages/${imageHashCode}/${imageName}`;
       }
     }
 
@@ -66,7 +67,9 @@ export default function InfoCard(props) {
         <div className="infocard-upper">
           <div className="infocard-img-div">
             <a href={linkURL} target="_blank" rel="noreferrer">
-              <img src={ requireImage() } alt="card" className="infocard-img" />
+              <div className="infocard-img-align">
+                <img src={ requireImage() } alt="card" className="infocard-img" />
+              </div>
             </a>
           </div>
           <div className="infocard-content-div">

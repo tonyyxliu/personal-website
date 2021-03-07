@@ -109,3 +109,13 @@ a, a:link, a:hover, a:visited, a:focus {
     padding-left: 1vmin;
     padding-right: 1vmin;
 }
+
+
+
+
+/* ----------------------------
+ * !!! Braft-Editor Display !!!
+ * ---------------------------- */
+.display {
+    max-width: 100%;
+}
