@@ -59,6 +59,8 @@ export default function Footer() {
             THEME <Link href="https://github.com/vtrois/kratos">KRATOS</Link> MADE BY <Link href="https://www.vtrois.com/">VTROIS</Link>
             <br />
             THEME INSPIRED BY <Link href="https://www.iwowen.cn/">IWOMEN'S BLOG</Link>
+            <br />
+            备案号：<Link href="https://beian.miit.gov.cn/">粤ICP备2020114181号</Link>
           </Typography>
         </div>
       </div>
