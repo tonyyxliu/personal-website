@@ -16,6 +16,8 @@ This is a simple personal website frontend which is totally hand-written. Only t
 
 ### Change Logs
 ---
+- 2021.9.22 &emsp;
+    - 主页底部添加工信部域名备案号
 - 2021.3.7 &emsp; v1.0.2
     - Bug Found: cannot upload two local images (reason unidentified, maybe file size too large?)
     - Update README.md file, making it more formal
